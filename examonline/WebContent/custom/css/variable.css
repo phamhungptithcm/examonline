@@ -1,0 +1,26 @@
+@charset "ISO-8859-1";
+
+:root {
+  --verve-navbar-backgroundcolor: #756c9d;
+  --verve-fontsize-normal: 16px;
+  --verve-fontsize-small: 14px;
+  --verve-fontsize-large: 20px;
+  --verve-navbar-link-color: #ffffff;
+  --verve-link-color: ##0077FF;
+  --verve-success-color: #00F110;
+  --verve-success-color-hover: #00E60F;
+  --verve-primary-color: #0091FF;
+  --verve-primary-color-hover: #0081E4;
+  --verve-warning-color: #FF9667;
+  --verve-error-color: #F93434;
+  --verve-link-dropdown-color: #000000;
+  --verve-link-dropdown-fontsize: 15px;
+  --verve-button-border-radius: 3px;
+  --verve-border-radius-card-container: 10px;
+  --verve-placeholder-color: #adadad;
+  --verve-inputlabel-color: #999999;
+  --verve-inputlabel-fontsize: 15px;
+  --verve-input-borderline-color: #756c9d;
+  --verve-input-borderline-lineheight: 1.2;
+  --verve-inputlabel-fontsize-after: 18px;
+}

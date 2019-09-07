@@ -1,0 +1,215 @@
+@charset "ISO-8859-1";
+
+@import url("variable.css");
+
+@font-face {
+	font-family: Poppins-Regular;
+	src: url('../fonts/poppins/Poppins-Regular.ttf');
+}
+
+@font-face {
+	font-family: Poppins-Medium;
+	src: url('../font/poppins/Poppins-Medium.ttf');
+}
+
+@font-face {
+	font-family: Poppins-Bold;
+	src: url('../font/poppins/Poppins-Bold.ttf');
+}
+
+@font-face {
+	font-family: Poppins-SemiBold;
+	src: url('../font/poppins/Poppins-SemiBold.ttf');
+}
+
+/* Set Default*/
+body {
+	font-family: Poppins-Regular;
+}
+
+.uk-container {
+	max-width: none;
+}
+
+.uk-navbar-container:not(.uk-navbar-transparent) {
+    background: var(--verve-navbar-backgroundcolor);
+}
+
+.uk-navbar-nav>li>a {
+	color: var(--verve-navbar-link-color);
+	font-family: Poppins-SemiBold;
+}
+
+.uk-navbar-nav>li:hover>a, .uk-navbar-nav>li>a.uk-open, .uk-navbar-nav>li>a:focus
+	{
+	color: var(--verve-navbar-link-color);
+	font-family: Poppins-SemiBold;
+}
+
+.uk-navbar-dropdown-nav>li>a {
+	color: var(--verve-link-dropdown-color);
+	font-size: var(--verve-link-dropdown-fontsize);
+}
+
+.uk-navbar-toggle {
+	color: var(--verve-navbar-link-color);
+	font-family: Poppins-SemiBold;
+}
+
+.uk-card {
+	border-radius: var(--verve-border-radius-card-container);
+}
+.uk-navbar-toggle:hover {
+	color: var(--verve-navbar-link-color);
+	font-family: Poppins-SemiBold;
+}
+.uk-width-large {
+    border-radius: var(--verve-border-radius-card-container);
+    width: 800px;
+}
+.uk-tab>.uk-active>a {
+    border-bottom: 3px solid var(--verve-input-borderline-color);
+}
+.uk-tab>*>a {
+    font-size: 20px;
+    text-transform: none;
+}
+.uk-button {
+    text-transform: none;
+    font-size: 20px;
+    border-radius: var(--verve-button-border-radius)
+}
+.uk-divider-icon {
+    margin: 0px;
+}
+
+.verve-scoretitle {
+	color: #000000;
+    font-size: 30px;
+    font-weight: bold;
+}
+.verve-score{
+	color: #000000;
+    font-size: 40px;
+    font-weight: bold;
+}
+.verve-flex {
+	display: flex;
+}
+.verve-margin-top {
+	margin-top: 30px;
+}
+.verve-contact-link a {
+	margin-right: 30px;
+}
+.verve-contact-link a:last-child{
+	margin-right: 0px;
+}
+#verve-exam-container {
+	position: relative;
+   		height: 650px;
+      overflow: hidden;
+}
+.verve-padding-left {
+	    padding-left: 50px;
+}
+.verve-card-title {
+	    font-size: 18px;
+    line-height: 1.4;
+}
+.verve-anwserselected-container {
+	margin-top: 50px;
+}
+.verve-anwserselected label:first-child {
+    margin-right: 10px;
+}
+.verve-anwserselected label {
+    margin-right: 30px;
+}
+.verve-margin-label {
+    padding: 40px 160px;
+    font-size: 20px;
+}
+.verve-margin-label label {
+    margin-right: 50px;
+}
+.verve-right {
+	text-align: right;
+}
+.verve-left {
+	text-align: left;
+}
+.verve-center {
+	text-align: center;
+}
+.verve-middle {
+	padding: 10px 0px;
+}
+.verve-choice-container {
+	min-width: 800px;
+	border-radius: var(--verve-border-radius-card-container);
+	box-shadow: 0px 5px 10px -5px gray;
+	padding: 10px 20px 0px 20px;
+}
+
+.verve-card-container {
+	width: 800px;
+	padding: 10px 20px 0px 20px;
+}
+
+.verve-choice-container div {
+	margin-top: 100px;
+}
+
+.verve-choice-container label {
+	margin-right: 50px;
+}
+
+.verve-level-container {
+	padding-left: 240px;
+}
+
+.verve-chooselevel-title {
+	text-align: center;
+}
+
+.verve-center {
+	text-align: center;
+}
+
+.verve-left {
+	text-align: left;
+}
+
+.verve-right {
+	text-align: right;
+}
+
+.verve-top-center {
+	transform: translateX(50%);
+}
+
+.verve-btn-success {
+	background-color: var(--verve-success-color);
+	color: #fff;
+}
+
+.verve-btn-success:focus, .verve-btn-success:hover, .verve-btn-success:active
+	{
+	background-color: var(--verve-success-color-hover);
+	color: #fff;
+}
+
+.verve-btn-primary {
+	background-color: var(--verve-primary-color);
+	color: #fff;
+}
+
+.verve-btn-primary:focus, .verve-btn-primary:hover, .verve-btn-primary:active
+	{
+	background-color: var(--verve-primary-color-hover);
+	color: #fff;
+}
+.verve-signin-container {
+	min-width: 800px;
+}
