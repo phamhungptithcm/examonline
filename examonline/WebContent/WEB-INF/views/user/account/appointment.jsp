@@ -6,6 +6,6 @@
 <title>Manage Appointment - ExamOnline</title>
 </head>
 <body>
-
+	<jsp:include page="accountinfor.jsp"></jsp:include>
 </body>
 </html>

@@ -31,7 +31,4 @@ public class LoginInfoDTO implements Serializable{
 	public void setRemember(Boolean remember) {
 		this.remember = remember;
 	}
-
-	
-
 }

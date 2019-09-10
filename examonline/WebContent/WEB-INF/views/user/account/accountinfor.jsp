@@ -18,3 +18,21 @@
 		</div>
 	</div>
 </div>
+<div style="border-bottom: 2px solid black;">
+	<div class="col-sm-6">
+		<div class="uk-inline">
+			<h3 class="uk-card-title">
+				<a href><span class="uk-link-heading" id="verve-dropdown-title">${btnTitle}</span> <span
+					uk-icon="icon: chevron-down"></span> </a>
+			</h3>
+			<div uk-dropdown="pos: bottom-justify">
+				<ul class="uk-nav uk-dropdown-nav">
+					<li class="uk-active"><a href="account/account-overview.htm" onclick="changeTitle('overview')">Acount Overview</a></li>
+					<li class="uk-nav-divider"></li>
+					<!-- <li><a href="account/manage-appointment.htm">Manage Appointment</a></li> -->
+					<li><a href="account/edit-account.htm" onclick="changeTitle('accinfor')">Edit Account Information</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>

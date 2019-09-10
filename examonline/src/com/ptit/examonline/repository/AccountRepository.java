@@ -2,6 +2,7 @@ package com.ptit.examonline.repository;
 
 import java.util.Set;
 
+import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -17,32 +18,37 @@ public class AccountRepository implements AccountDAO{
 	
 	@Override
 	public void insert(Account entity) {
-		// TODO Auto-generated method stub
-		
+		factory.getCurrentSession().save(entity);
 	}
 
 	@Override
 	public void update(Account entity) {
-		// TODO Auto-generated method stub
-		
+		factory.getCurrentSession().update(entity);
 	}
 
 	@Override
 	public void delete(Account entity) {
-		// TODO Auto-generated method stub
-		
+		factory.getCurrentSession().delete(entity);
 	}
 
 	@Override
 	public void refresh(Account entity) {
-		// TODO Auto-generated method stub
-		
+		factory.getCurrentSession().refresh(entity);
 	}
 
 	@Override
 	public Set<Account> getAccounts() {
-		// TODO Auto-generated method stub
-		return null;
+		String hql = "FROM Account";
+		Query query= factory.getCurrentSession().createQuery(hql);
+		return (Set<Account>) query.list();
+	}
+
+	@Override
+	public Account getAccount(String userName) {
+		String hql = "FROM Account WHERE userName=:userName";
+		Query query= factory.getCurrentSession().createQuery(hql);
+		query.setParameter("userName", userName);
+		return (Account) query.list().get(0);
 	}
 
 

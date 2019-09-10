@@ -4,7 +4,7 @@
 	<div class="row px-3 w-100">
 		<div class="col-md-4 d-md-block d-none">
 			<p class="text-primary ml-3">
-				Project maintained by <a href="#" target="_blank">HungP7</a>
+				Project maintained by <a href="https://github.com/phamhungptithcm/examonline/tree/master/examonline" target="_blank">HungP7</a>
 			</p>
 		</div>
 		<div class="text-center text-primary col-md-8 col-lg-4">

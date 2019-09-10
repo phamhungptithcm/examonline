@@ -67,9 +67,6 @@ body {
     border-radius: var(--verve-border-radius-card-container);
     width: 800px;
 }
-.uk-tab>.uk-active>a {
-    border-bottom: 3px solid var(--verve-input-borderline-color);
-}
 .uk-tab>*>a {
     font-size: 20px;
     text-transform: none;
@@ -82,6 +79,95 @@ body {
 .uk-divider-icon {
     margin: 0px;
 }
+.uk-input {
+	border-radius: 30px;
+}
+
+.uk-input:focus, .uk-select:focus, .uk-textarea:focus {
+    border-color: var(--verve-focus-color-input);
+}
+
+
+
+
+
+.verve-timeline .verve-timelineHeader{
+    display:inline-block;
+    width:110px;
+    padding:8px;
+    text-align:center;
+    border:1px solid #D7D7D7;
+    border-radius:30px
+  }
+    ul {
+    list-style-type: none;
+  }
+  .verve-subtimeline {
+    margin-bottom:0;
+    margin-left:55px;
+    padding:15px 0;
+    border-left:1px solid #D7D7D7;
+  }
+  .verve-subtimeline > ul > .verve-itemDetail{
+    position:relative;
+    padding-left:30px;
+  }
+  .verve-subtimeline > ul > .verve-itemDetail::before{
+    position:absolute;
+    top:5px;
+    left:-5px;
+    display:block;
+    width:10px;
+    height:10px;
+    content:"";
+    border-radius:50%;
+    background-color:#17347b;
+  }
+  .verve-subtimeline .verve-itemDetail {
+      margin-top: 30px;
+  }
+  .verve-subtimeline > ul {
+      padding: 0;
+  }
+  .verve-accountCurrent {
+    border-left:1px solid #76ca02;
+    color: #76ca02;
+  }
+  .verve-dotStatus {
+    position: absolute;
+    top:0px;
+    margin-left: -5px;
+    display:block;
+    width:10px;
+    height:10px;
+    content:"";
+    border-radius:50%;
+    background-color:#76ca02;
+  }
+  .verve-acContent {
+    position:absolute;
+    top: -3px;
+    margin-left: 30px;
+  }
+li.verve-itemDetail > table tr td:last-child {
+  text-align: center;
+}
+.verve-itemDetail  table tr td:first-child {
+  font-weight: bold;
+}
+
+.verve-subtimeline > ul > .verve-itemDetail-red::before{
+  background-color:#af252f;
+}
+.verve-subtimeline > ul > .verve-itemDetail-greengray::before{
+  background-color: #898e2e;
+}
+.verve-subtimeline > ul > .verve-itemDetail-bluegray::before{
+  background-color: #5b7f93;
+}
+
+
+
 
 .verve-scoretitle {
 	color: #000000;
@@ -104,6 +190,11 @@ body {
 }
 .verve-contact-link a:last-child{
 	margin-right: 0px;
+}
+#verve-history-container {
+	position: relative;
+   		height: 520px;
+      overflow: hidden;
 }
 #verve-exam-container {
 	position: relative;

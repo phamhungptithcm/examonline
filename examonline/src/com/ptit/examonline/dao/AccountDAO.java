@@ -10,4 +10,5 @@ public interface AccountDAO {
 	public void delete(Account entity);
 	public void refresh(Account entity);
 	public Set<Account> getAccounts();
+	public Account getAccount(String userName);
 }
