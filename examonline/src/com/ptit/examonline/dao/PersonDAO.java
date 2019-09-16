@@ -10,4 +10,5 @@ public interface PersonDAO {
 	public void delete(Person entity);
 	public void refresh(Person entity);
 	public Set<Person> getPersons();
+	public Person getPersonById(Long id);
 }

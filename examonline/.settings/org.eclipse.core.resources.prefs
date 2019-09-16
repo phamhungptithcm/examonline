@@ -1,2 +1,5 @@
 eclipse.preferences.version=1
 encoding//WebContent/custom/css/custom.css=UTF-8
+encoding//src/com/ptit/examonline/controler/user/AccountController.java=UTF-8
+encoding//src/com/ptit/examonline/helper/Mailer.java=UTF-8
+encoding//src/com/ptit/examonline/service/imp/AccountServiceImp.java=UTF-8

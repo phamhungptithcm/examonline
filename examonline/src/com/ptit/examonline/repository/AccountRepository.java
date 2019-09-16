@@ -6,11 +6,15 @@ import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.ptit.examonline.dao.AccountDAO;
 import com.ptit.examonline.entity.Account;
 
+
 @Repository
+@EnableTransactionManagement
 public class AccountRepository implements AccountDAO{
 	
 	@Autowired
@@ -23,7 +27,7 @@ public class AccountRepository implements AccountDAO{
 
 	@Override
 	public void update(Account entity) {
-		factory.getCurrentSession().update(entity);
+		factory.getCurrentSession().merge(entity);
 	}
 
 	@Override
@@ -48,8 +52,16 @@ public class AccountRepository implements AccountDAO{
 		String hql = "FROM Account WHERE userName=:userName";
 		Query query= factory.getCurrentSession().createQuery(hql);
 		query.setParameter("userName", userName);
-		return (Account) query.list().get(0);
+		return (Account)query.uniqueResult();
 	}
 
+	@Override
+	public Account getAcountByEmail(String email) {
+		String hql = "FROM Account WHERE person.emailAddress=:email";
+		Query query= factory.getCurrentSession().createQuery(hql);
+		query.setParameter("email", email);
+		return (Account)query.uniqueResult();
+	}
 
+	
 }

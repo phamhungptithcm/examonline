@@ -10,14 +10,14 @@
 	<div class="uk-navbar-right">
 		<ul class="uk-navbar-nav uk-visible@m">
 			<c:if test="${!empty user}">
-				<li><a href="account/account-overview.htm">Manage Working
+				<li><a href="account/account-management.htm">Manage Working
 						Account</a></li>
 
 				<li><a href="#"><span uk-icon="icon: user"></span>
 						${user.userName} <span uk-icon="chevron-down"></span></a>
 					<div class="uk-navbar-dropdown">
 						<ul class="uk-nav uk-navbar-dropdown-nav">
-							<li><a href="account/signout.htm"><span
+							<li><a href="account/account-log.htm?signout"><span
 									uk-icon="icon: sign-out"></span> Sign out</a></li>
 						</ul>
 					</div></li>
@@ -37,14 +37,14 @@
 					</ul>
 					<ul class="uk-nav uk-nav-default tm-nav">
 						<li class="uk-nav-header"><span uk-icon="icon: user"></span>HungPham</li>
-						<li class="uk-active"><a href="#">Sign Out</a></li>
+						<li class="uk-active"><a href="account/account-log.htm?signout">Sign Out</a></li>
 					</ul>
 					<ul class="uk-nav uk-nav-default tm-nav">
 						<li class="uk-nav-header">Manage Working Account</li>
-						<li class="uk-active"><a href="#">Edit Account
+						<li class="uk-active"><a href="account/account-management.htm?editaccount">Edit Account
 								Information</a></li>
-						<li class="uk-active"><a href="#">Account Overview</a></li>
-						<li class="uk-active"><a href="#">Manage Appointment</a></li>
+						<li class="uk-active"><a href="account/account-management.htm">Account Overview</a></li>
+						<!-- <li class="uk-active"><a href="account/account-management.htm?appoitment">Manage Appointment</a></li> -->
 					</ul>
 				</div>
 			</div>

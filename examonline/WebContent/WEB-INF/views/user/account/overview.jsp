@@ -68,7 +68,7 @@
 											<tbody>
 												<tr>
 													<td>08:03 AM</td>
-													<td><a class="uk-link-reset" href="account/test-result.htm">Made the java servlet quiz with easy level</a></td>
+													<td><a class="uk-link-reset" href="account/account-management.htm?testresult">Made the java servlet quiz with easy level</a></td>
 													<td style="color: #000000">8 <i class="fa fa-star" aria-hidden="true" style="color: yellow;"></i></td>
 												</tr>
 											</tbody>
@@ -82,7 +82,7 @@
 											<tbody>
 												<tr>
 													<td>10:03 PM</td>
-													<td><a class="uk-link-reset" href="account/test-result.htm">Made the java servlet quiz with difficulty level</a></td>
+													<td><a class="uk-link-reset" href="account/account-management.htm?testresult">Made the java servlet quiz with difficulty level</a></td>
 													<td style="color: #f40000">3  <i class="fa fa-star" aria-hidden="true" style="color: yellow;"></i></td>
 												</tr>
 											</tbody>
@@ -101,7 +101,7 @@
 											<tbody>
 												<tr>
 													<td>12:04 PM</td>
-													<td><a class="uk-link-reset" href="account/test-result.htm">Made the java servlet quiz with difficulty level</a></td>
+													<td><a class="uk-link-reset" href="account/account-management.htm?testresult">Made the java servlet quiz with difficulty level</a></td>
 													<td style="color: #000000">6 <i class="fa fa-star" aria-hidden="true" style="color: yellow;"></i></td>
 												</tr>
 											</tbody>
@@ -120,7 +120,7 @@
 											<tbody>
 												<tr>
 													<td>09:04 AM</td>
-													<td><a class="uk-link-reset" href="account/test-result.htm">Made the java servlet quiz with medium level</a></td>
+													<td><a class="uk-link-reset" href="account/account-management.htm?testresult">Made the java servlet quiz with medium level</a></td>
 													<td style="color: #000000">8 <i class="fa fa-star" aria-hidden="true" style="color: yellow;"></i></td>
 												</tr>
 											</tbody>
@@ -139,7 +139,7 @@
 											<tbody>
 												<tr>
 													<td>07:04 PM</td>
-													<td><a class="uk-link-reset" href="account/test-result.htm">Made the java servlet quiz with medium level</a></td>
+													<td><a class="uk-link-reset" href="account/account-management.htm?testresult">Made the java servlet quiz with medium level</a></td>
 													<td style="color: #000000">10 <i class="fa fa-star" aria-hidden="true" style="color: yellow;"></i></td>
 												</tr>
 											</tbody>

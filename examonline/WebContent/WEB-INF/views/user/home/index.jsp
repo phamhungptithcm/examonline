@@ -17,16 +17,15 @@
 							class="uk-width-large uk-margin-auto uk-card uk-card-default uk-card-body uk-box-shadow-large">
 							<h3 class="uk-card-title uk-text-center">Please choose level</h3>
 							<hr class="uk-divider-icon">
-							<form>
+							<form action="exam/to-do.htm" method="post">
 								<div class="uk-margin">
 									<div class="uk-grid-small uk-child-width-auto uk-grid verve-margin-label">
 										<label><input class="uk-radio" type="radio"
-											name="level" checked> Easy</label> <label><input
-											class="uk-radio" type="radio" name="level"> Medium</label> <label><input
-											class="uk-radio" type="radio" name="level"> Hard</label>
+											name="level" value="easy" checked> Easy</label> <label><input
+											class="uk-radio" type="radio" name="level" value="medium"> Medium</label> <label><input
+											class="uk-radio" type="radio" name="level" value="Hard"> Hard</label>
 									</div>
 								</div>
-
 								<div class="uk-margin">
 									<button
 										class="uk-button uk-button-primary uk-width-1-1 verve-btn-success">Start</button>

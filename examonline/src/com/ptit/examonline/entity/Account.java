@@ -17,8 +17,14 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.annotations.UpdateTimestamp;
+
 @Entity
 @Table(name = "ACCOUNTS")
+@DynamicUpdate
+
 public class Account implements Serializable {
 	/**
 	 * 
@@ -40,9 +46,11 @@ public class Account implements Serializable {
 	private String createdBy;
 
 	@Column(name = "DATECREATED", nullable = false)
+	@CreationTimestamp
 	private Timestamp dateCreated;
 
 	@Column(name = "DATEMODIFIED", nullable = false)
+	@UpdateTimestamp
 	private Timestamp dateModified;
 
 	@Column(name = "MODIFIEDBY", nullable = false)

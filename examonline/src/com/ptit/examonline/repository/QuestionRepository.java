@@ -5,11 +5,14 @@ import java.util.Set;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.ptit.examonline.dao.QuestionDAO;
 import com.ptit.examonline.entity.Question;
 
+
 @Repository
+@EnableTransactionManagement
 public class QuestionRepository implements QuestionDAO{
 
 	@Autowired

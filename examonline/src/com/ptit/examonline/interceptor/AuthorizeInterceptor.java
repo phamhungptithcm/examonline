@@ -11,11 +11,11 @@ import com.ptit.examonline.dto.LoginInfoDTO;
 import com.ptit.examonline.entity.Account;
 import com.ptit.examonline.service.AccountService;
 
-public class AuthorizeInterceptor extends HandlerInterceptorAdapter{
-	
+public class AuthorizeInterceptor extends HandlerInterceptorAdapter {
+
 	@Autowired
 	private AccountService accountService;
-	
+
 	@SuppressWarnings("unused")
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
@@ -23,14 +23,12 @@ public class AuthorizeInterceptor extends HandlerInterceptorAdapter{
 		String cpath = request.getContextPath();
 		String requestAction = request.getRequestURI().replace(cpath, "");
 		HttpSession session = request.getSession();
-		
+
 		LoginInfoDTO loginInfoDTO = (LoginInfoDTO) session.getAttribute("user");
-		
-		Account user = accountService.getAccountByUserName(loginInfoDTO.getUserName());
-		
-		if(loginInfoDTO == null) {
+
+		if (loginInfoDTO == null) {
 			session.setAttribute("requestAction", requestAction);
-			response.sendRedirect(cpath + "/account/signin.htm");
+			response.sendRedirect(cpath + "/account/account-log.htm");
 			return false;
 		}
 		return true;

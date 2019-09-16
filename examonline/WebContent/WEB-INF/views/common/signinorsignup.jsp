@@ -19,50 +19,54 @@
 							class="uk-margin uk-width-large uk-margin-auto uk-card uk-card-default uk-card-body uk-box-shadow-large">
 							<ul class="uk-tab uk-flex-center" uk-grid
 								uk-switcher="animation: uk-animation-fade">
-								
-								<li><a href="#">Sign In</a></li>
+
+								<li><a href="account/account-log.htm">Sign In</a></li>
 								<li class="uk-hidden">Forgot Password?</li>
-								<li><a href="#">Sign Up</a></li>
-								
+								<li><a href="account/account-log.htm?signup">Sign Up</a></li>
+
 							</ul>
 							<ul class="uk-switcher uk-margin">
 								<li>
-									<h3 class="uk-card-title uk-text-center">Welcome back!</h3> <form:form
-										action="account/signin.htm" method="post"
-										modelAttribute="loginInfoDTO">
-										<div class="uk-margin">
-											<div class="uk-inline uk-width-1-1">
-												<span class="uk-form-icon" uk-icon="icon: user"></span>
-												<form:input path="userName" class="uk-input uk-form-large"
-													type="text" placeholder="Username/Email address" value="${cookie.uid.value}"/>
+									<h3 class="uk-card-title uk-text-center">Welcome back!</h3>
+									<div>
+										<form:form action="account/account-log.htm" method="post"
+											modelAttribute="signin">
+											<div class="uk-margin">
+												<div class="uk-inline uk-width-1-1">
+													<span class="uk-form-icon" uk-icon="icon: user"></span>
+													<form:input path="userName" class="uk-input uk-form-large"
+														type="text" placeholder="Username/Email address"
+														value="${cookie.uid.value}" />
+												</div>
 											</div>
-										</div>
-										<div class="uk-margin">
-											<div class="uk-inline uk-width-1-1">
-												<span class="uk-form-icon" uk-icon="icon: lock"></span>
-												<form:input path="password" class="uk-input uk-form-large"
-													type="password" placeholder="Password" value="${cookie.pwd.value}"/>
+											<div class="uk-margin">
+												<div class="uk-inline uk-width-1-1">
+													<span class="uk-form-icon" uk-icon="icon: lock"></span>
+													<form:input path="password" class="uk-input uk-form-large"
+														type="password" placeholder="Password"
+														value="${cookie.pwd.value}" />
+												</div>
 											</div>
-										</div>
-										<div class="uk-column-1-2 uk-margin">
-											<div class="uk-grid-small uk-child-width-auto uk-grid">
-												<label><form:checkbox path="remember"
-														class="uk-checkbox"/> Remember
-													me?</label>
+											<div class="uk-column-1-2 uk-margin">
+												<div class="uk-grid-small uk-child-width-auto uk-grid">
+													<label><form:checkbox path="remember"
+															class="uk-checkbox" /> Remember me?</label>
+												</div>
+												<div class="uk-text-right@s uk-text-center uk-text-small">
+													<a href="account/account-log.htm?forgot" uk-switcher-item="1">Forgot Password?</a>
+												</div>
 											</div>
-											<div class="uk-text-right@s uk-text-center uk-text-small">
-												<a href="#" uk-switcher-item="1">Forgot Password?</a>
+											<div class="uk-margin verve-right">
+												<button
+													class="uk-button uk-button-primary verve-btn-primary"
+													type="submit">Sign in</button>
 											</div>
-										</div>
-										<div class="uk-margin verve-right">
-											<button class="uk-button uk-button-primary verve-btn-primary"
-												type="submit">Sign in</button>
-										</div>
-										<div class="uk-text-small uk-text-center">
-											Not registered? <a href="#" uk-switcher-item="2">Create
-												an account</a>
-										</div>
-									</form:form>
+											<div class="uk-text-small uk-text-center">
+												Not registered? <a href="account/account-log.htm?signup" uk-switcher-item="2">Create
+													an account</a>
+											</div>
+										</form:form>
+									</div>
 								</li>
 								<li>
 									<h3 class="uk-card-title uk-text-center">Forgot your
@@ -70,106 +74,111 @@
 									<p class="uk-text-center uk-width-medium@s uk-margin-auto">Enter
 										your email address and we will send you a link to reset your
 										password.</p>
-									<form>
-										<div class="uk-margin">
-											<div class="uk-inline uk-width-1-1">
-												<span class="uk-form-icon" uk-icon="icon: mail"></span> <input
-													class="uk-input uk-form-large" type="text"
-													placeholder="Email Address">
+									<div>
+										<form action="account/account-log.htm?forgot" method="post">
+											<div class="uk-margin">
+												<div class="uk-inline uk-width-1-1">
+													<span class="uk-form-icon" uk-icon="icon: mail"></span> <input
+														class="uk-input uk-form-large" type="text"
+														placeholder="Email Address" name="email">
+												</div>
 											</div>
-										</div>
-										<div class="uk-column-1-2 uk-margin">
-											<div class="uk-text-lighter uk-text-middle">
-												<a href="#" uk-switcher-item="0"><span
-													uk-icon="chevron-left"></span> Back to login</a>
+											<div class="uk-column-1-2 uk-margin">
+												<div class="uk-text-lighter uk-text-middle">
+													<a href="account/account-log.htm?signin" uk-switcher-item="0"><span
+														uk-icon="chevron-left"></span> Back to login</a>
+												</div>
+												<div class="verve-right">
+													<button
+														class="uk-button uk-button-primary verve-btn-primary" type="submit">Send
+														Email</button>
+												</div>
 											</div>
-											<div class="verve-right">
-												<button
-													class="uk-button uk-button-primary verve-btn-primary">Send
-													Email</button>
-											</div>
-										</div>
-									</form>
+										</form>
+									</div>
 								</li>
 								<li>
 									<h3 class="uk-card-title uk-text-center">Sign up today.
-										It's free!</h3> <form:form action="account/signup.htm"
-										method="post" modelAttribute="">
-										<div class="uk-margin">
-											<div class="uk-inline uk-width-1-1">
-												<span class="uk-form-icon" uk-icon="icon: user"></span> <input
-													class="uk-input uk-form-large" type="text"
-													placeholder="UserName">
-											</div>
-										</div>
-
-										<div class="uk-margin">
-											<div class="uk-inline uk-width-1-1">
-												<span class="uk-form-icon" uk-icon="icon: lock"></span> <input
-													class="uk-input uk-form-large" type="password"
-													placeholder="Password">
-											</div>
-										</div>
-										<div class="uk-margin">
-											<div class="uk-inline uk-width-1-1">
-												<span class="uk-form-icon" uk-icon="icon: lock"></span> <input
-													class="uk-input uk-form-large" type="password"
-													placeholder="Confirm Password">
-											</div>
-										</div>
-										<div class="uk-margin">
-											<div class="uk-column-1-2">
+										It's free!</h3>
+									<div>
+										<form:form action="account/account-log.htm?signup" method="post"
+											modelAttribute="signup">
+											<div class="uk-margin">
 												<div class="uk-inline uk-width-1-1">
-													<span class="uk-form-icon" uk-icon="icon: users"></span> <input
-														class="uk-input uk-form-large" type="text"
-														placeholder="First Name">
-												</div>
-												<div class="uk-width-1-1">
-													<input class="uk-input uk-form-large" type="text"
-														placeholder="Last Name">
+													<span class="uk-form-icon" uk-icon="icon: user"></span>
+													<form:input class="uk-input uk-form-large" type="text"
+														placeholder="UserName" path="userName" />
 												</div>
 											</div>
-										</div>
-										<!-- <div
+
+											<div class="uk-margin">
+												<div class="uk-inline uk-width-1-1">
+													<span class="uk-form-icon" uk-icon="icon: lock"></span>
+													<form:input class="uk-input uk-form-large" type="password"
+														placeholder="Password" path="password" />
+												</div>
+											</div>
+											<div class="uk-margin">
+												<div class="uk-inline uk-width-1-1">
+													<span class="uk-form-icon" uk-icon="icon: lock"></span> <input
+														class="uk-input uk-form-large" type="password"
+														placeholder="Confirm Password" />
+												</div>
+											</div>
+											<div class="uk-margin">
+												<div class="uk-column-1-2">
+													<div class="uk-inline uk-width-1-1">
+														<span class="uk-form-icon" uk-icon="icon: users"></span>
+														<form:input class="uk-input uk-form-large" type="text"
+															placeholder="First Name" path="firstName" />
+													</div>
+													<div class="uk-width-1-1">
+														<form:input class="uk-input uk-form-large" type="text"
+															placeholder="Last Name" path="lastName" />
+													</div>
+												</div>
+											</div>
+											<!-- <div
 											class="uk-margin uk-grid-small uk-child-width-auto uk-grid">
 											<label><input class="uk-radio" type="radio"
 												name="gender" checked> Male</label> <label><input
 												class="uk-radio" type="radio" name="gender"> Female</label>
 										</div> -->
-										<div class="uk-margin">
-											<div class="uk-inline uk-width-1-1">
-												<span class="uk-form-icon" uk-icon="icon: mail"></span> <input
-													class="uk-input uk-form-large" type="text"
-													placeholder="Email Address">
+											<div class="uk-margin">
+												<div class="uk-inline uk-width-1-1">
+													<span class="uk-form-icon" uk-icon="icon: mail"></span>
+													<form:input class="uk-input uk-form-large" type="text"
+														placeholder="Email Address" path="email" />
+												</div>
 											</div>
-										</div>
-										<div class="uk-margin">
-											<div class="uk-inline uk-width-1-1">
-												<span class="uk-form-icon" uk-icon="icon: receiver"></span>
-												<input class="uk-input uk-form-large" type="text"
-													placeholder="Phone Number">
+											<div class="uk-margin">
+												<div class="uk-inline uk-width-1-1">
+													<span class="uk-form-icon" uk-icon="icon: receiver"></span>
+													<form:input class="uk-input uk-form-large" type="text"
+														placeholder="Phone Number" path="phoneNum" />
+												</div>
 											</div>
-										</div>
-										<div class="uk-column-1-2 uk-margin">
-											<div
-												class="uk-grid-small uk-child-width-auto uk-grid verve-middle">
-												<label><input
-													class="uk-checkbox uk-margin-small-right" type="checkbox"><small>Accept
-														our <a href="#">Terms of Service</a> and <a href="#">Privacy
-															Policy</a>.
-												</small></label>
+											<div class="uk-column-1-2 uk-margin">
+												<div
+													class="uk-grid-small uk-child-width-auto uk-grid verve-middle">
+													<label><input
+														class="uk-checkbox uk-margin-small-right" type="checkbox"><small>Accept
+															our <a href="#">Terms of Service</a> and <a href="#">Privacy
+																Policy</a>.
+													</small></label>
+												</div>
+												<div class="verve-right">
+													<button
+														class="uk-button uk-button-primary verve-btn-primary "
+														type="submit">Sign up</button>
+												</div>
 											</div>
-											<div class="verve-right">
-												<button
-													class="uk-button uk-button-primary verve-btn-primary ">Sign
-													up</button>
+											<div class="uk-text-small uk-text-center">
+												Already have an account? <a href="account/account-log.htm?signin" uk-switcher-item="0">Sign
+													in</a>
 											</div>
-										</div>
-										<div class="uk-text-small uk-text-center">
-											Already have an account? <a href="#" uk-switcher-item="0">Sign
-												in</a>
-										</div>
-									</form:form>
+										</form:form>
+									</div>
 								</li>
 							</ul>
 						</div>

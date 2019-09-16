@@ -1,16 +1,17 @@
-package com.ptit.examonline.service;
+package com.ptit.examonline.service.imp;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.stereotype.Component;
 
-import com.ptit.examonline.dao.AccountDAO;
 import com.ptit.examonline.dao.QuestionDAO;
+import com.ptit.examonline.service.QuestionService;
 
-@Transactional
-@Service
-public class QuestionService {
+@Component
+public class QuestionServiceImp implements QuestionService{
 	
 	@Autowired
 	private QuestionDAO questionDAO;
+	
+	
+
 }

@@ -5,11 +5,14 @@ import java.util.Set;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.ptit.examonline.dao.AnwserDAO;
 import com.ptit.examonline.entity.Anwser;
 
+
 @Repository
+@EnableTransactionManagement
 public class AnwserRepository implements AnwserDAO{
 
 	@Autowired

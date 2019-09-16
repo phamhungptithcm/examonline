@@ -86,8 +86,21 @@ body {
 .uk-input:focus, .uk-select:focus, .uk-textarea:focus {
     border-color: var(--verve-focus-color-input);
 }
-
-
+.uk-badge {
+    height: 20px;
+    font-size: 10px;
+}
+.uk-placeholder {
+    margin-bottom: 0px;
+    padding: 0px 10px;
+    border-radius: 20px;
+}
+.uk-progress {
+  margin-top: 10px;
+  margin-left: 4px;
+    height: 7px;
+    width: 48%;
+}
 
 
 

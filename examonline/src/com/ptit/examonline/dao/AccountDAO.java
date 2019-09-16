@@ -11,4 +11,5 @@ public interface AccountDAO {
 	public void refresh(Account entity);
 	public Set<Account> getAccounts();
 	public Account getAccount(String userName);
+	public Account getAcountByEmail(String email);
 }

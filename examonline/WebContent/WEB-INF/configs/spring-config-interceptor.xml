@@ -15,14 +15,21 @@
 	<!-- Configures Handler Interceptors -->
 	<mvc:interceptors>
 		<!-- Lọc tất cả các URL -->
-		<!-- <bean class="com.ptit.examonline.interceptor.GlobalInterceptor" /> -->
+		<bean class="com.ptit.examonline.interceptor.GlobalInterceptor" /> 
 
 		<mvc:interceptor>
 			<mvc:mapping path="/admin/**"/>
 			<bean class="com.ptit.examonline.interceptor.AdminInterceptor" />
 		</mvc:interceptor>
 		<mvc:interceptor>
-			<mvc:mapping path="/todo/**" />
+			<mvc:mapping path="/exam/**" />
+			<mvc:mapping path="/account/account-management.htm" />
+			<mvc:mapping path="/account/account-management.htm?updateinfo" />
+			<mvc:mapping path="/account/account-management.htm?testresult" />
+			<mvc:mapping path="/account/account-management.htm?changepassword" />
+			<mvc:mapping path="/account/account-management.htm?editaccount" />
+			<mvc:mapping path="/account/account-log.htm?signout" />
+			<mvc:mapping path="/home/**" />
 			<bean class="com.ptit.examonline.interceptor.AuthorizeInterceptor" />
 		</mvc:interceptor>
 	</mvc:interceptors>

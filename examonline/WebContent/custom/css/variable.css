@@ -6,7 +6,7 @@
   --verve-fontsize-small: 14px;
   --verve-fontsize-large: 20px;
   --verve-navbar-link-color: #ffffff;
-  --verve-link-color: ##0077FF;
+  --verve-link-color: #0077FF;
   --verve-success-color: #00F110;
   --verve-success-color-hover: #00E60F;
   --verve-primary-color: #0091FF;
@@ -15,7 +15,7 @@
   --verve-error-color: #F93434;
   --verve-link-dropdown-color: #000000;
   --verve-link-dropdown-fontsize: 15px;
-  --verve-button-border-radius: 3px;
+  --verve-button-border-radius: 20px;
   --verve-border-radius-card-container: 10px;
   --verve-placeholder-color: #adadad;
   --verve-inputlabel-color: #999999;
@@ -24,4 +24,5 @@
   --verve-input-borderline-lineheight: 1.2;
   --verve-inputlabel-fontsize-after: 18px;
   --verve-focus-color-input: #756c9d;
+  --verve-progress-background-color: #756c9d;
 }

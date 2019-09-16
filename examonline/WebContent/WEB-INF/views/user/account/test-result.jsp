@@ -36,7 +36,7 @@
 				</div>
 				<div class="uk-margin">
 					<div class="uk-text-lighter uk-text-middle">
-						<a href="account/account-overview.htm" uk-switcher-item="1"><span uk-icon="chevron-left"></span>
+						<a href="account/account-management.htm" uk-switcher-item="1"><span uk-icon="chevron-left"></span>
 							Back to overview</a>
 					</div>
 				</div>

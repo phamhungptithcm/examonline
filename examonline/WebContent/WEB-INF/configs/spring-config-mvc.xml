@@ -17,14 +17,12 @@
 	<!-- Spring MVC Annotation -->
 	 <context:annotation-config />
 	<mvc:annotation-driven></mvc:annotation-driven>
-	<bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping" />
-	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter" />
 	<!-- Cấu hình view -->
 	<bean id="viewResolver" p:prefix="/WEB-INF/views/" p:suffix=".jsp"
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver" />
 
 	<!-- Cấu hình controller -->
-	<context:component-scan
-		base-package="com.ptit.examonline" />
+	<context:component-scan base-package="com.ptit.examonline" />
+    <bean class="org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping"/>
 
 </beans>
