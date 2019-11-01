@@ -2,7 +2,7 @@ package com.ptit.examonline.dto;
 
 import java.io.Serializable;
 
-public class PersonInfoDTO implements Serializable {
+public class PersonDTO implements Serializable {
 	/**
 	 * 
 	 */
@@ -18,6 +18,7 @@ public class PersonInfoDTO implements Serializable {
 	private String email;
 	private String phoneNum;
 	private String address;
+	private String dateOfBirth;
 
 	public Boolean getGender() {
 		return gender;
@@ -99,4 +100,13 @@ public class PersonInfoDTO implements Serializable {
 		this.address = address;
 	}
 
+	public String getDateOfBirth() {
+		return dateOfBirth;
+	}
+
+	public void setDateOfBirth(String dateOfBirth) {
+		this.dateOfBirth = dateOfBirth;
+	}
+	
+	
 }

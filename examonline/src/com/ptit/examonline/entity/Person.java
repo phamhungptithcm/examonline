@@ -27,39 +27,39 @@ public class Person implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "PERSONID", nullable = false)
+	@Column(name = "PERSONID")
 	private Long personId;
 	
-	@Column(name = "FIRSTNAME", nullable = false,updatable = true )
+	@Column(name = "FIRSTNAME" )
 	private String firstName;
 	
 	@Column(name = "GENDER")
 	private String gender;
 	
-	@Column(name = "LASTNAME", nullable = false)
+	@Column(name = "LASTNAME")
 	private String lastName;
 	
-	@Column(name = "PHONENUMBER", nullable = false)
+	@Column(name = "PHONENUMBER")
 	private String phoneNumber;
 	
-	@Column(name = "EMAILADDRESS", nullable = false)
+	@Column(name = "EMAILADDRESS")
 	private String emailAddress;
 	
-	@Column(name = "ADDRESS", nullable = false)
+	@Column(name = "ADDRESS")
 	private String address;
 	
-	@Column(name = "CREATEDBY", nullable = false)
+	@Column(name = "CREATEDBY")
 	private String createdBy;
 
-	@Column(name = "DATECREATED", nullable = false)
+	@Column(name = "DATECREATED")
 	@CreationTimestamp
 	private Timestamp dateCreated;
 
-	@Column(name = "DATEMODIFIED", nullable = false)
+	@Column(name = "DATEMODIFIED")
 	@UpdateTimestamp
 	private Timestamp dateModified;
 
-	@Column(name = "MODIFIEDBY", nullable = false)
+	@Column(name = "MODIFIEDBY")
 	private String modifiedBy;
 	
 	@OneToOne(mappedBy ="person")

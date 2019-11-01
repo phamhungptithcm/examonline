@@ -15,7 +15,7 @@
 	<div class="uk-container">
 		<jsp:include page="${view}" />
 	</div>
-	<div class="uk-position-bottom">
+	<div class="uk-margin-top verve-footer" uk-sticky>
 		<jsp:include page="../common/footer.jsp"></jsp:include>
 	</div>
 

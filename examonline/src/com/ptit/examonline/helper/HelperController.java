@@ -30,7 +30,7 @@ public class HelperController {
 	}
 	protected String viewAdminPages(String view) {
 		request.setAttribute("view", view);
-		return "user/layout";
+		return "admin/layout";
 	}
 	
 	protected Cookie getCookie(String cookieName) {

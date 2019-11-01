@@ -28,27 +28,27 @@ public class Anwser implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "ANWSERID", nullable = false)
+	@Column(name = "ANWSERID")
 	private Long anwserId;
 	
-	@Column(name = "CONTENT", nullable = false)
+	@Column(name = "CONTENT")
 	private String content;
 	
-	@Column(name = "STATUS", nullable = false)
-	private Integer status;
+	@Column(name = "STATUS")
+	private Boolean status;
 	
-	@Column(name = "CREATEDBY", nullable = false)
+	@Column(name = "CREATEDBY")
 	private String createdBy;
 
-	@Column(name = "DATECREATED", nullable = false)
+	@Column(name = "DATECREATED")
 	@CreationTimestamp
 	private Timestamp dateCreated;
 
-	@Column(name = "DATEMODIFIED", nullable = false)
+	@Column(name = "DATEMODIFIED")
 	@UpdateTimestamp
 	private Timestamp dateModified;
 
-	@Column(name = "MODIFIEDBY", nullable = false)
+	@Column(name = "MODIFIEDBY")
 	private String modifiedBy;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -71,11 +71,11 @@ public class Anwser implements Serializable{
 		this.content = content;
 	}
 
-	public Integer getStatus() {
+	public Boolean getStatus() {
 		return status;
 	}
 
-	public void setStatus(Integer status) {
+	public void setStatus(Boolean status) {
 		this.status = status;
 	}
 

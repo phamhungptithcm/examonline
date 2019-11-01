@@ -2,18 +2,15 @@ package com.ptit.examonline.entity;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -33,39 +30,31 @@ public class Question implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "QUESTIONID", nullable = false)
+	@Column(name = "QUESTIONID")
 	private Long questionId;
 	
-	@Column(name = "CONTENT", nullable = false)
+	@Column(name = "CONTENT")
 	private String content;
 	
-	@Column(name = "LEVEL", nullable = false)
+	@Column(name = "LEVEL")
 	private Integer level;
 	
-	@Column(name = "CREATEDBY", nullable = false)
+	@Column(name = "CREATEDBY")
 	private String createdBy;
 
-	@Column(name = "DATECREATED", nullable = false)
+	@Column(name = "DATECREATED")
 	@CreationTimestamp
 	private Timestamp dateCreated;
 
-	@Column(name = "DATEMODIFIED", nullable = false)
+	@Column(name = "DATEMODIFIED")
 	@UpdateTimestamp
 	private Timestamp dateModified;
 
-	@Column(name = "MODIFIEDBY", nullable = false)
+	@Column(name = "MODIFIEDBY")
 	private String modifiedBy;
 	
-	@OneToMany(mappedBy="question")
-	Set<Anwser> anwsers;
-	
-	@ManyToMany(cascade = { CascadeType.ALL })
-    @JoinTable(
-        name = "QUESTION_EXAM", 
-        joinColumns = { @JoinColumn(name = "QUESTIONID") }, 
-        inverseJoinColumns = { @JoinColumn(name = "EXAMID") }
-    )
-    Set<Exam> exams = new HashSet<>();
+	@OneToMany(mappedBy="question", cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+	private List<Anwser> anwsers;
 	
 	public Long getQuestionId() {
 		return questionId;
@@ -123,20 +112,11 @@ public class Question implements Serializable{
 		this.modifiedBy = modifiedBy;
 	}
 
-	public Set<Anwser> getAnwsers() {
+	public List<Anwser> getAnwsers() {
 		return anwsers;
 	}
 
-	public void setAnwsers(Set<Anwser> anwsers) {
+	public void setAnwsers(List<Anwser> anwsers) {
 		this.anwsers = anwsers;
 	}
-
-	public Set<Exam> getExams() {
-		return exams;
-	}
-
-	public void setExams(Set<Exam> exams) {
-		this.exams = exams;
-	}
-	
 }

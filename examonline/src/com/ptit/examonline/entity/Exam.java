@@ -2,8 +2,7 @@ package com.ptit.examonline.entity;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,8 +11,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -32,32 +31,32 @@ public class Exam implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "EXAMID", nullable = false)
+	@Column(name = "EXAMID")
 	private Long examId;
 	
-	@Column(name = "ANWSERORDER", nullable = false)
-	private String anwserOrder;
+	@Column(name = "SCORE")
+	private Double score;
 	
-	@Column(name = "CREATEDBY", nullable = false)
+	@Column(name = "CREATEDBY")
 	private String createdBy;
 
-	@Column(name = "DATECREATED", nullable = false)
+	@Column(name = "DATECREATED")
 	@CreationTimestamp
 	private Timestamp dateCreated;
 
-	@Column(name = "DATEMODIFIED", nullable = false)
+	@Column(name = "DATEMODIFIED")
 	@UpdateTimestamp
 	private Timestamp dateModified;
 
-	@Column(name = "MODIFIEDBY", nullable = false)
+	@Column(name = "MODIFIEDBY")
 	private String modifiedBy;
 	
-	@ManyToMany(mappedBy = "exams")
-    private Set<Question> questions = new HashSet<>();	
-	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="ACCOUNTNUMBER", nullable = false)
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name="ACCOUNTNUMBER")
 	private Account account;
+	
+	@OneToMany(mappedBy="exam")
+	private List<QuestionResult> questionResults;
 
 	public Long getExamId() {
 		return examId;
@@ -67,12 +66,12 @@ public class Exam implements Serializable{
 		this.examId = examId;
 	}
 
-	public String getAnwserOrder() {
-		return anwserOrder;
+	public Double getScore() {
+		return score;
 	}
 
-	public void setAnwserOrder(String anwserOrder) {
-		this.anwserOrder = anwserOrder;
+	public void setScore(Double score) {
+		this.score = score;
 	}
 
 	public String getCreatedBy() {
@@ -107,20 +106,20 @@ public class Exam implements Serializable{
 		this.modifiedBy = modifiedBy;
 	}
 
-	public Set<Question> getQuestions() {
-		return questions;
-	}
-
-	public void setQuestions(Set<Question> questions) {
-		this.questions = questions;
-	}
-
 	public Account getAccount() {
 		return account;
 	}
 
 	public void setAccount(Account account) {
 		this.account = account;
+	}
+
+	public List<QuestionResult> getQuestionResults() {
+		return questionResults;
+	}
+
+	public void setQuestionResults(List<QuestionResult> questionResults) {
+		this.questionResults = questionResults;
 	}
 	
 	

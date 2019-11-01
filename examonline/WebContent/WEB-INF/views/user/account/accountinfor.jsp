@@ -3,16 +3,16 @@
 	<div class="row">
 		<div class="col-md-6">
 			<div>
-				ACCOUNT ${personDetails.accountPlan} <span class="uk-badge">${personDetails.accountStatus}</span>
+				ACCOUNT ${infoDTOGlobal.accountPlan} <span class="uk-badge">${infoDTOGlobal.accountStatus}</span>
 			</div>
-			<div>#${personDetails.accountNumber }</div>
-			<h2>${personDetails.fullName }</h2>
+			<div>#${infoDTOGlobal.accountNumber }</div>
+			<h2>${infoDTOGlobal.fullName }</h2>
 		</div>
 		<div class="col-md-6">
 			<ul class="uk-list">
-				<li><span uk-icon="icon: mail"></span> ${personDetails.email }</li>
-				<li><span uk-icon="icon: receiver"></span> ${personDetails.phoneNum }</li>
-				<li><span uk-icon="icon: location"></span> ${personDetails.address }</li>
+				<li><span uk-icon="icon: mail"></span> ${infoDTOGlobal.email }</li>
+				<li><span uk-icon="icon: receiver"></span> ${infoDTOGlobal.phoneNum }</li>
+				<li><span uk-icon="icon: location"></span> ${infoDTOGlobal.address }</li>
 			</ul>
 		</div>
 	</div>
@@ -26,10 +26,9 @@
 			</h3>
 			<div uk-dropdown="pos: bottom-justify">
 				<ul class="uk-nav uk-dropdown-nav">
-					<li class="uk-active"><a href="account/account-management.htm">Acount Overview</a></li>
+					<li class="uk-active"><a href="account-management/account-overview.htm">Acount Overview</a></li>
 					<li class="uk-nav-divider"></li>
-					<!-- <li><a href="account/manage-appointment.htm">Manage Appointment</a></li> -->
-					<li><a href="account/account-management.htm?editaccount">Edit Account Information</a></li>
+					<li><a href="account-management/account-edit.htm">Edit Account Information</a></li>
 				</ul>
 			</div>
 		</div>

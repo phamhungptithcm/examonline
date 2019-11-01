@@ -1,7 +1,7 @@
 var timer = document.getElementById("countdown");
 
 var counter = 0;
-var timeleft = 1200;
+var timeleft = 10;
 function setTimeLeft(time) {
 	timeleft = time;
 }
@@ -25,7 +25,8 @@ function timeIt() {
 	counter++;
 	timer.innerHTML = convertSeconds(timeleft - counter);
 	if(counter == timeleft) {
-		
+		var url= "exam/submit-quiz.htm"; 
+	    window.location = url; 
 	}
 }
 setInterval(timeIt, 1000);

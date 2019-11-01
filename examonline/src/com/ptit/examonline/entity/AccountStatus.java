@@ -2,7 +2,7 @@ package com.ptit.examonline.entity;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -28,31 +28,34 @@ public class AccountStatus implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "ACCOUNTSTATUSID", nullable = false)
+	@Column(name = "ACCOUNTSTATUSID")
 	private Long accountStatusId;
 	
-	@Column(name = "ACCOUNTSTATUSCODE", nullable = false)
+	@Column(name = "ACCOUNTSTATUSCODE")
 	private String accoutStatusCode;
 	
-	@Column(name = "SHORTDESCRIPTION", nullable = false)
+	@Column(name = "SHORTDESCRIPTION")
 	private String shortDescription;
 	
-	@Column(name = "CREATEDBY", nullable = false)
+	@Column(name = "ISACTIVE")
+	private boolean isActive;
+	
+	@Column(name = "CREATEDBY")
 	private String createdBy;
 
-	@Column(name = "DATECREATED", nullable = false)
+	@Column(name = "DATECREATED")
 	@CreationTimestamp
 	private Timestamp dateCreated;
 
-	@Column(name = "DATEMODIFIED", nullable = false)
+	@Column(name = "DATEMODIFIED")
 	@UpdateTimestamp
 	private Timestamp dateModified;
 
-	@Column(name = "MODIFIEDBY", nullable = false)
+	@Column(name = "MODIFIEDBY")
 	private String modifiedBy;
 	
 	@OneToMany(mappedBy="accountStatus")
-	Set<Account> accounts;
+	List<Account> accounts;
 
 	public Long getAccountStatusId() {
 		return accountStatusId;
@@ -110,13 +113,22 @@ public class AccountStatus implements Serializable{
 		this.modifiedBy = modifiedBy;
 	}
 
-	public Set<Account> getAccounts() {
+	public List<Account> getAccounts() {
 		return accounts;
 	}
 
-	public void setAccounts(Set<Account> accounts) {
+	public void setAccounts(List<Account> accounts) {
 		this.accounts = accounts;
 	}
+
+	public boolean isActive() {
+		return isActive;
+	}
+
+	public void setActive(boolean isActive) {
+		this.isActive = isActive;
+	}
+	
 	
 	
 }

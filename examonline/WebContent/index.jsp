@@ -1,2 +1,2 @@
 <%@ page pageEncoding="utf-8"%>
-<jsp:forward page="account/account-log.htm"/>
+<jsp:forward page="home/index.htm"/>

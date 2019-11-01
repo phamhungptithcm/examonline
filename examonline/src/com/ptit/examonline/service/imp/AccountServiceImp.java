@@ -1,5 +1,8 @@
 package com.ptit.examonline.service.imp;
 
+import java.text.SimpleDateFormat;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -10,18 +13,20 @@ import com.ptit.examonline.dao.AccountDAO;
 import com.ptit.examonline.dao.AccountPlanDAO;
 import com.ptit.examonline.dao.AccountStatusDAO;
 import com.ptit.examonline.dao.PersonDAO;
-import com.ptit.examonline.dto.AccountMessage;
+import com.ptit.examonline.dto.AccountDTO;
 import com.ptit.examonline.dto.LoginInfoDTO;
-import com.ptit.examonline.dto.NewAccountInfoDTO;
-import com.ptit.examonline.dto.PersonInfoDTO;
+import com.ptit.examonline.dto.MessageChecking;
+import com.ptit.examonline.dto.PersonDTO;
 import com.ptit.examonline.entity.Account;
+import com.ptit.examonline.entity.AccountPlan;
+import com.ptit.examonline.entity.AccountStatus;
 import com.ptit.examonline.entity.Person;
-import com.ptit.examonline.helper.Helper;
+import com.ptit.examonline.helper.HelperConst;
 import com.ptit.examonline.helper.Mailer;
 import com.ptit.examonline.service.AccountService;
 
 @Component
-public class AccountServiceImp extends Helper implements AccountService {
+public class AccountServiceImp implements AccountService {
 
 	@Autowired
 	private AccountDAO accountDAO;
@@ -44,33 +49,40 @@ public class AccountServiceImp extends Helper implements AccountService {
 	@Autowired
 	HttpServletRequest request;
 
-	public AccountMessage signin(LoginInfoDTO loginInfoDTO) throws Exception {
-		Account account = accountDAO.getAccount(loginInfoDTO.getUserName());
-		String password = generateSecurePassword(loginInfoDTO.getPassword());
-		AccountMessage message = new AccountMessage();
+	public MessageChecking signin(LoginInfoDTO user) throws Exception {
+		Account account = accountDAO.getAccount(user.getUserName());
+		MessageChecking message = new MessageChecking();
 		if (account == null) {
-			message.setMessage("Account information is not correct. Please check your username/password again!");
-			message.setStatus(false);
-		} else if (account.getAccountStatus().getAccoutStatusCode().equals("A")) {
-			message.setMessage("This account is not actived. Please contact administrator!");
-			message.setStatus(false);
-		} else if (verifyUserPassword(loginInfoDTO.getPassword(), account.getPassword())) {
-			message.setMessage("Account information is not correct. Please check your username/password again!");
+			message.setMessage(HelperConst.ACCOUNTNOTFOUND);
 			message.setStatus(false);
 		} else {
-			session.setAttribute("user", loginInfoDTO);
-
-			message.setMessage("Succcessfuly");
-			message.setStatus(true);
+			if (account.getAccountStatus().getAccoutStatusCode().equals("A")) {
+				message.setMessage(HelperConst.ACCOUNTNOTACTIVE);
+				message.setStatus(false);
+			}
+			if (user.getPassword().equals(account.getPassword()) == false) {
+				message.setMessage(HelperConst.ACCOUNTNOTFOUND);
+				message.setStatus(false);
+			} else {
+				boolean isAdmin = false;
+				if(account.getAccountPlan().getAccountPlanId() == 3)  {
+					isAdmin  = true;
+				}
+				message.setIsAdmin(isAdmin);
+				user.setAdmin(isAdmin);
+				session.setAttribute("user", user);
+				message.setMessage("Succcessfuly");
+				message.setStatus(true);
+			}
 		}
 		return message;
 	}
 
-	public AccountMessage signup(NewAccountInfoDTO account) throws Exception {
-		AccountMessage message = new AccountMessage();
-		Account user = accountDAO.getAccount(account.getUserName());
+	public MessageChecking signup(AccountDTO account) throws Exception {
+		MessageChecking message = new MessageChecking();
+		Account user = accountDAO.getAccount(account.getUsername());
 		if (user != null) {
-			message.setMessage("The username already exists!");
+			message.setMessage(HelperConst.ACCOUTNEXISTED);
 			message.setStatus(false);
 		} else {
 			Account newAccount = new Account();
@@ -79,17 +91,17 @@ public class AccountServiceImp extends Helper implements AccountService {
 			person.setLastName(account.getLastName());
 			person.setEmailAddress(account.getEmail());
 			person.setPhoneNumber(account.getPhoneNum());
-			person.setCreatedBy(account.getUserName());
-			person.setModifiedBy(account.getUserName());
+			person.setCreatedBy(account.getUsername());
+			person.setModifiedBy(account.getUsername());
 
 			personDAO.insert(person);
-
-			newAccount.setUserName(account.getUserName());
-			newAccount.setPassword(generateSecurePassword(account.getPassword()));
-			newAccount.setAccountStatus(accountStatusDAO.getAccountStatusByStatusCode("P"));
-			newAccount.setAccountPlan(accountPlanDAO.getAccountPlanByPlanCode("ST"));
-			newAccount.setCreatedBy(account.getUserName());
-			newAccount.setModifiedBy(account.getUserName());
+			
+			newAccount.setUserName(account.getUsername());
+			newAccount.setPassword(account.getPassword());
+			newAccount.setAccountStatus(accountStatusDAO.getAccountStatusById((long)1)); // active
+			newAccount.setAccountPlan(accountPlanDAO.getAccountPlanById((long)1)); // student
+			newAccount.setCreatedBy(account.getUsername());
+			newAccount.setModifiedBy(account.getUsername());
 			newAccount.setPerson(person);
 
 			accountDAO.insert(newAccount);
@@ -102,8 +114,8 @@ public class AccountServiceImp extends Helper implements AccountService {
 	}
 
 	@Override
-	public PersonInfoDTO setPersonInfo(String userName) throws Exception {
-		PersonInfoDTO infoDTO = new PersonInfoDTO();
+	public PersonDTO setPersonInfo(String userName) throws Exception {
+		PersonDTO infoDTO = new PersonDTO();
 		Account account = accountDAO.getAccount(userName);
 		String fullname = account.getPerson().getFirstName() + " " + account.getPerson().getLastName();
 		infoDTO.setAccountNumber(String.valueOf(account.getAccountNumber()));
@@ -113,17 +125,18 @@ public class AccountServiceImp extends Helper implements AccountService {
 		infoDTO.setEmail(account.getPerson().getEmailAddress());
 		infoDTO.setPhoneNum(account.getPerson().getPhoneNumber());
 		infoDTO.setAddress(account.getPerson().getAddress());
+		infoDTO.setDateOfBirth(new SimpleDateFormat("MM/dd/yyyy").format(account.getPerson().getDateCreated()));
 
 		return infoDTO;
 	}
 
 	@Override
-	public AccountMessage fogotPassword(String email) throws Exception {
+	public MessageChecking fogotPassword(String email) throws Exception {
 		boolean status;
-		String uri = "/examonline/account/account-log.htm?reset&email="+email;
+		String uri = "/examonline/account/account-log.htm?reset&email=" + email;
 		String url = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + uri;
 		String link = "<a href=\"" + url + "\">Reset your password</a> \n";
-		AccountMessage message = new AccountMessage();
+		MessageChecking message = new MessageChecking();
 		StringBuffer title = new StringBuffer("Hello, \n");
 		StringBuffer content = new StringBuffer(
 				"A request to reset your Hover account password was received. Click the button  to reset your password and "
@@ -146,11 +159,12 @@ public class AccountServiceImp extends Helper implements AccountService {
 	}
 
 	@Override
-	public AccountMessage resetPassword(String password, String email) throws Exception {
+	public MessageChecking resetPassword(String password, String email) throws Exception {
 		Account account = accountDAO.getAcountByEmail(email);
-		AccountMessage message = new AccountMessage();;
-		if(account!=null) {
-			account.setPassword(generateSecurePassword(password));
+		MessageChecking message = new MessageChecking();
+		;
+		if (account != null) {
+			account.setPassword(password);
 			accountDAO.update(account);
 			message.setMessage("Update successfuly");
 			message.setStatus(true);
@@ -161,11 +175,12 @@ public class AccountServiceImp extends Helper implements AccountService {
 	}
 
 	@Override
-	public AccountMessage changePassword(String userName, String password) throws Exception {
+	public MessageChecking changePassword(String userName, String password) throws Exception {
 		Account account = accountDAO.getAccount(userName);
-		AccountMessage message = new AccountMessage();;
-		if(account!=null) {
-			account.setPassword(generateSecurePassword(password));
+		MessageChecking message = new MessageChecking();
+		;
+		if (account != null) {
+			account.setPassword(password);
 			accountDAO.update(account);
 			message.setMessage("Update successfuly");
 			message.setStatus(true);
@@ -173,9 +188,126 @@ public class AccountServiceImp extends Helper implements AccountService {
 			message.setMessage("Update fail");
 			message.setStatus(false);
 		}
+
+		return message;
+	}
+
+	@Override
+	public Account getCurrentAccount() throws Exception {
+		LoginInfoDTO loginInfoDTO = (LoginInfoDTO) session.getAttribute("user");
+		
+		return accountDAO.getAccount(loginInfoDTO.getUserName());
+	}
+
+	@Override
+	public Account getAccount(String userName) {
+		return accountDAO.getAccount(userName);
+	}
+
+	@Override
+	public List<Account> getAccounts() throws Exception {
+		return accountDAO.getAccounts();
+	}
+
+	@Override
+	public AccountDTO getAccountByUsername(String username) {
+		Account account = accountDAO.getAccount(username);
+		AccountDTO accountDTO = new AccountDTO();
+		accountDTO.setUsername(account.getUserName());
+		accountDTO.setPassword(account.getPassword());
+		return accountDTO;
+	}
+
+	@Override
+	public AccountDTO delete(Long accountNumber) {
+		Account account = accountDAO.getAccountByAccountNumber(accountNumber);
+		AccountDTO accountDTO = null;
+		try {
+			AccountStatus accountStatus = accountStatusDAO.getAccountStatusById((long)3);
+			account.setAccountStatus(accountStatus);
+			accountDAO.update(account);
+			accountDTO = new AccountDTO();
+			accountDTO.setAccountNumber(account.getAccountNumber());
+			accountDTO.setAccountStatus(account.getAccountStatus().getShortDescription());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return accountDTO;
+	}
+
+	@Override
+	public AccountDTO getAccountByAccountNumber(Long accountNumber) throws Exception {
+		Account account = accountDAO.getAccountByAccountNumber(accountNumber);
+		AccountDTO accountDTO = new AccountDTO();
+		accountDTO.setAccountNumber(account.getAccountNumber());
+		accountDTO.setUsername(account.getUserName());
+		accountDTO.setPassword(account.getPassword());
+		accountDTO.setAccountPlanId(account.getAccountPlan().getAccountPlanId());
+		accountDTO.setAccountStatusId(account.getAccountStatus().getAccountStatusId());
+		return accountDTO;
+	}
+	
+	@Override
+	public MessageChecking updateAccount(AccountDTO accountDTO) throws Exception {
+		MessageChecking message = new MessageChecking();
+		message.setMessage("Fail");
+		message.setStatus(false);
+		
+		Account account = accountDAO.getAccountByAccountNumber(accountDTO.getAccountNumber());
+		AccountStatus accountStatus = accountStatusDAO.getAccountStatusById(accountDTO.getAccountStatusId());
+		AccountPlan accountPlan = accountPlanDAO.getAccountPlanById(accountDTO.getAccountPlanId());
+		
+		if(account != null) {
+			account.setPassword(accountDTO.getPassword());
+			account.setAccountPlan(accountPlan);
+			account.setAccountStatus(accountStatus);
+			
+			accountDAO.update(account);
+			message.setMessage("Updated");
+			message.setStatus(true);
+			
+		}
 		
 		return message;
 	}
 
+	@Override
+	public MessageChecking addAnNewAccount(AccountDTO accountDTO) throws Exception {
+		MessageChecking message = new MessageChecking();
+		message.setMessage("Account is exited");
+		message.setStatus(false);
+		
+		Account account = accountDAO.getAccountByUserName(accountDTO.getUsername());
+		AccountStatus accountStatus = accountStatusDAO.getAccountStatusById(accountDTO.getAccountStatusId());
+		AccountPlan accountPlan = accountPlanDAO.getAccountPlanById(accountDTO.getAccountPlanId());
+		
+		if(account == null) {
+			Person person = new Person();
+			person.setAddress(getCurrentAccount().getPerson().getAddress());
+			person.setCreatedBy(getCurrentAccount().getUserName());
+			person.setModifiedBy(getCurrentAccount().getUserName());
+			person.setEmailAddress(accountDTO.getUsername()+"@gmail.com");
+			person.setFirstName(getCurrentAccount().getPerson().getFirstName());
+			person.setLastName(getCurrentAccount().getPerson().getLastName());
+			person.setGender(getCurrentAccount().getPerson().getGender());
+			person.setPhoneNumber(getCurrentAccount().getPerson().getPhoneNumber());
+			personDAO.insert(person);
+			Account account2 = new Account();
+			account2.setAccountPlan(accountPlan);
+			account2.setAccountStatus(accountStatus);
+			account2.setUserName(accountDTO.getUsername());
+			account2.setPerson(person);
+			account2.setPassword(accountDTO.getPassword());
+			account2.setCreatedBy(getCurrentAccount().getUserName());
+			account2.setModifiedBy(getCurrentAccount().getUserName());
+			
+			
+			accountDAO.insert(account2);
+			message.setMessage("Successfull");
+			message.setStatus(true);
+		}
+		
+		return message;
+	}
 
 }

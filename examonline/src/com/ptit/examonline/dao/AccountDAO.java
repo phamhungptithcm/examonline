@@ -1,5 +1,6 @@
 package com.ptit.examonline.dao;
 
+import java.util.List;
 import java.util.Set;
 
 import com.ptit.examonline.entity.Account;
@@ -9,7 +10,9 @@ public interface AccountDAO {
 	public void update(Account entity);
 	public void delete(Account entity);
 	public void refresh(Account entity);
-	public Set<Account> getAccounts();
+	public List<Account> getAccounts();
 	public Account getAccount(String userName);
 	public Account getAcountByEmail(String email);
+	public Account getAccountByAccountNumber(Long accountNumber);
+	public Account getAccountByUserName(String username);
 }

@@ -13,8 +13,7 @@
 	<div class="row verve-margin-top">
 		<div class="col-md-5">
 			<h3 class="uk-card-title uk-text-center">Change Password</h3>
-			${message.message}
-			<form action="account/account-management.htm?changepassword"
+			<form action="account-management/account-edit.htm?changepassword"
 				method="post">
 				<div class="uk-margin">
 					<div class="uk-inline uk-width-1-1">
@@ -47,7 +46,7 @@
 		<div class="col-md-6">
 			<h3 class="uk-card-title uk-text-center">Update account
 				information</h3>
-			<form:form action="account/account-management.htm?updateinfo"
+			<form:form action="account-management/account-edit.htm?updateinfo"
 				method="post" modelAttribute="personInfo">
 				<div class=" row uk-margin">
 					<div class="col-md-6">
@@ -79,7 +78,7 @@
 					<div class="col-md-6">
 						<div class="uk-grid-small uk-child-width-auto uk-grid">
 							<label> <form:radiobutton path="gender" class="uk-radio"
-									value="true" /> Male
+									value="true"/> Male
 							</label> <label><form:radiobutton path="gender" class="uk-radio"
 									value="false" /> Female</label>
 						</div>

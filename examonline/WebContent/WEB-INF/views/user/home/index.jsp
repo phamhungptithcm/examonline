@@ -1,6 +1,5 @@
 <%@ page pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jstl/fmt_rt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,15 +14,18 @@
 					<div class="uk-width-1-1@m">
 						<div
 							class="uk-width-large uk-margin-auto uk-card uk-card-default uk-card-body uk-box-shadow-large">
-							<h3 class="uk-card-title uk-text-center">Please choose level</h3>
+							<h3 class="uk-card-title uk-text-center">Please choose
+								subject</h3>
 							<hr class="uk-divider-icon">
 							<form action="exam/to-do.htm" method="post">
 								<div class="uk-margin">
-									<div class="uk-grid-small uk-child-width-auto uk-grid verve-margin-label">
-										<label><input class="uk-radio" type="radio"
-											name="level" value="easy" checked> Easy</label> <label><input
-											class="uk-radio" type="radio" name="level" value="medium"> Medium</label> <label><input
-											class="uk-radio" type="radio" name="level" value="Hard"> Hard</label>
+									<div
+										class="uk-grid-small uk-child-width-auto uk-grid verve-margin-label">
+										<c:forEach var="subject" items="${subjects}">
+											<label><input class="uk-radio" type="radio"
+												name="subject" id="${subject.key }" value="${subject.key }">
+												<span> ${subject.value}</span></label>
+										</c:forEach>
 									</div>
 								</div>
 								<div class="uk-margin">
@@ -37,5 +39,8 @@
 			</div>
 		</div>
 	</div>
+	<script type="text/javascript">
+		document.getElementById("1").checked = true;
+	</script>
 </body>
 </html>

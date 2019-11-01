@@ -28,7 +28,8 @@ body {
 }
 
 .uk-container {
-	max-width: none;
+  max-width: none;
+  position: relative;
 }
 
 .uk-navbar-container:not(.uk-navbar-transparent) {
@@ -79,12 +80,14 @@ body {
 .uk-divider-icon {
     margin: 0px;
 }
-.uk-input {
+.uk-input,.uk-select{
 	border-radius: 30px;
+    border-color: var(--verve-border-color-input);
 }
 
 .uk-input:focus, .uk-select:focus, .uk-textarea:focus {
-    border-color: var(--verve-focus-color-input);
+    border: 1.5px solid var(--verve-focus-color-input);
+    transition: width 2s;
 }
 .uk-badge {
     height: 20px;
@@ -102,8 +105,27 @@ body {
     width: 48%;
 }
 
+.uk-checkbox, .uk-radio {
+    border-color: var(--verve-border-color-input);
+}
+.uk-form-icon {
+    color: #2196f3;
+}
 
 
+.verve-lineDeleted {
+	background-color: #ff8a80;
+	color: white;
+	font-weight: bold;
+}
+.verve-index {
+	font-weight: bold;
+}
+.verve-footer {
+      position: absolute;
+    width: 100%;
+    bottom: 0px;
+}
 .verve-timeline .verve-timelineHeader{
     display:inline-block;
     width:110px;
@@ -206,13 +228,13 @@ li.verve-itemDetail > table tr td:last-child {
 }
 #verve-history-container {
 	position: relative;
-   		height: 520px;
-      overflow: hidden;
+   	height: 520px;
+    verflow: hidden;
 }
 #verve-exam-container {
 	position: relative;
-   		height: 650px;
-      overflow: hidden;
+   	height: 650px;
+    overflow: hidden;
 }
 .verve-padding-left {
 	    padding-left: 50px;
@@ -224,9 +246,6 @@ li.verve-itemDetail > table tr td:last-child {
 .verve-anwserselected-container {
 	margin-top: 50px;
 }
-.verve-anwserselected label:first-child {
-    margin-right: 10px;
-}
 .verve-anwserselected label {
     margin-right: 30px;
 }
@@ -235,7 +254,7 @@ li.verve-itemDetail > table tr td:last-child {
     font-size: 20px;
 }
 .verve-margin-label label {
-    margin-right: 50px;
+    margin-right: 5px;
 }
 .verve-right {
 	text-align: right;

@@ -1,4 +1,6 @@
 <%@ page pageEncoding="utf-8"%>
+<%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c"%>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -56,96 +58,32 @@
 								</div>
 							</div>
 						</div>
-						<li><span class="verve-timelineHeader">07 Sep</span>
-							<div class="verve-subtimeline">
-								<ul>
-									<li class="verve-itemDetail"><table style="width: 100%">
-											<colgroup>
-												<col width="100px">
-												<col width="auto">
-												<col width="100px">
-											</colgroup>
-											<tbody>
-												<tr>
-													<td>08:03 AM</td>
-													<td><a class="uk-link-reset" href="account/account-management.htm?testresult">Made the java servlet quiz with easy level</a></td>
-													<td style="color: #000000">8 <i class="fa fa-star" aria-hidden="true" style="color: yellow;"></i></td>
-												</tr>
-											</tbody>
-										</table></li>
-									<li class="verve-itemDetail"><table style="width: 100%">
-											<colgroup>
-												<col width="100px">
-												<col width="auto">
-												<col width="100px">
-											</colgroup>
-											<tbody>
-												<tr>
-													<td>10:03 PM</td>
-													<td><a class="uk-link-reset" href="account/account-management.htm?testresult">Made the java servlet quiz with difficulty level</a></td>
-													<td style="color: #f40000">3  <i class="fa fa-star" aria-hidden="true" style="color: yellow;"></i></td>
-												</tr>
-											</tbody>
-										</table></li>
-								</ul>
-							</div></li>
-						<li><span class="verve-timelineHeader">06 Sep</span>
-							<div class="verve-subtimeline">
-								<ul>
-									<li class="verve-itemDetail"><table style="width: 100%">
-											<colgroup>
-												<col width="100px">
-												<col width="auto">
-												<col width="100px">
-											</colgroup>
-											<tbody>
-												<tr>
-													<td>12:04 PM</td>
-													<td><a class="uk-link-reset" href="account/account-management.htm?testresult">Made the java servlet quiz with difficulty level</a></td>
-													<td style="color: #000000">6 <i class="fa fa-star" aria-hidden="true" style="color: yellow;"></i></td>
-												</tr>
-											</tbody>
-										</table></li>
-								</ul>
-							</div></li>
-							<li><span class="verve-timelineHeader">07 Sep</span>
-							<div class="verve-subtimeline">
-								<ul>
-									<li class="verve-itemDetail"><table style="width: 100%">
-											<colgroup>
-												<col width="100px">
-												<col width="auto">
-												<col width="100px">
-											</colgroup>
-											<tbody>
-												<tr>
-													<td>09:04 AM</td>
-													<td><a class="uk-link-reset" href="account/account-management.htm?testresult">Made the java servlet quiz with medium level</a></td>
-													<td style="color: #000000">8 <i class="fa fa-star" aria-hidden="true" style="color: yellow;"></i></td>
-												</tr>
-											</tbody>
-										</table></li>
-								</ul>
-							</div></li>
-							<li><span class="verve-timelineHeader">08 Sep</span>
-							<div class="verve-subtimeline">
-								<ul>
-									<li class="verve-itemDetail"><table style="width: 100%">
-											<colgroup>
-												<col width="100px">
-												<col width="auto">
-												<col width="100px">
-											</colgroup>
-											<tbody>
-												<tr>
-													<td>07:04 PM</td>
-													<td><a class="uk-link-reset" href="account/account-management.htm?testresult">Made the java servlet quiz with medium level</a></td>
-													<td style="color: #000000">10 <i class="fa fa-star" aria-hidden="true" style="color: yellow;"></i></td>
-												</tr>
-											</tbody>
-										</table></li>
-								</ul>
-							</div></li>
+						<c:forEach var="exam" items="${exams}">
+							<li><span class="verve-timelineHeader">${exam.strStartDate}</span>
+								<div class="verve-subtimeline">
+									<ul>
+										<c:forEach var="examDetail" items="${exam.examDetails}">
+											<li class="verve-itemDetail"><table style="width: 100%">
+													<colgroup>
+														<col width="100px">
+														<col width="auto">
+														<col width="100px">
+													</colgroup>
+													<tbody>
+														<tr>
+															<td>${examDetail.startTime }</td>
+															<td><a class="uk-link-reset"
+																href="account-management/exam-result.htm?examId=${examDetail.examId}">${examDetail.examName}</a></td>
+															<td style="color: #000000">${examDetail.score}<i
+																class="fa fa-star" aria-hidden="true"
+																style="color: yellow;"></i></td>
+														</tr>
+													</tbody>
+												</table></li>
+										</c:forEach>
+									</ul>
+								</div></li>
+						</c:forEach>
 					</ul>
 				</div>
 			</div>

@@ -1,6 +1,6 @@
 package com.ptit.examonline.repository;
 
-import java.util.Set;
+import java.util.List;
 
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
@@ -41,17 +41,25 @@ public class AccountStatusRepository implements AccountStatusDAO {
 	}
 
 	@Override
-	public Set<AccountStatus> getAccountStatuses() throws Exception {
-		String hql = "FROM AccountStatus";
+	public List<AccountStatus> getAccountStatuses() throws Exception {
+		String hql = "FROM AccountStatus WHERE isActive = 1";
 		Query query = factory.getCurrentSession().createQuery(hql);
-		return (Set<AccountStatus>) query.list();
+		return query.list();
 	}
 
 	@Override
-	public AccountStatus getAccountStatusByStatusCode(String code) throws Exception {
-		String hql = "FROM AccountStatus WHERE accoutStatusCode=:code";
+	public AccountStatus getAccountStatusById(Long accountStatusId) throws Exception {
+		String hql = "FROM AccountStatus WHERE isActive = 1 AND accountStatusId=:id";
 		Query query= factory.getCurrentSession().createQuery(hql);
-		query.setParameter("code", code);
+		query.setParameter("id", accountStatusId);
+		return (AccountStatus) query.uniqueResult();
+	}
+
+	@Override
+	public AccountStatus getAccountStatusByCode(String statusCode) throws Exception {
+		String hql = "FROM AccountStatus WHERE isActive = 1 AND accoutStatusCode=:statusCode";
+		Query query= factory.getCurrentSession().createQuery(hql);
+		query.setParameter("statusCode", statusCode);
 		return (AccountStatus) query.uniqueResult();
 	}
 }

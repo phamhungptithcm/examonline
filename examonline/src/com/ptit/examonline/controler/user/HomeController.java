@@ -5,15 +5,17 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.ptit.examonline.helper.HelperConst;
 import com.ptit.examonline.helper.HelperController;
 
 @Controller
 @RequestMapping("home")
 public class HomeController extends HelperController{
 	
+	
 	@GetMapping("index.htm")
 	public String index(Model model) {
-		System.out.println("Connected to home/index.html");
+		model.addAttribute("subjects",HelperConst.getSubjects());
 		return viewUserPages("home/index.jsp");
 	}
 }

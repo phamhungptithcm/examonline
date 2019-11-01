@@ -23,14 +23,18 @@
 		</mvc:interceptor>
 		<mvc:interceptor>
 			<mvc:mapping path="/exam/**" />
-			<mvc:mapping path="/account/account-management.htm" />
-			<mvc:mapping path="/account/account-management.htm?updateinfo" />
-			<mvc:mapping path="/account/account-management.htm?testresult" />
-			<mvc:mapping path="/account/account-management.htm?changepassword" />
-			<mvc:mapping path="/account/account-management.htm?editaccount" />
+			<mvc:mapping path="/account-management/**" />
 			<mvc:mapping path="/account/account-log.htm?signout" />
+			
 			<mvc:mapping path="/home/**" />
 			<bean class="com.ptit.examonline.interceptor.AuthorizeInterceptor" />
+		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="/exam/result.htm" />
+			<mvc:mapping path="/account-management/**" />
+			<mvc:mapping path="/account/**" />
+			<mvc:mapping path="/home/**" />
+			<bean class="com.ptit.examonline.interceptor.ClearResultInterceptor" />
 		</mvc:interceptor>
 	</mvc:interceptors>
 

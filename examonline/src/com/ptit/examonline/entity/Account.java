@@ -2,6 +2,7 @@ package com.ptit.examonline.entity;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -33,39 +34,39 @@ public class Account implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "ACCOUNTNUMBER", nullable = false)
+	@Column(name = "ACCOUNTNUMBER")
 	private Long accountNumber;
 	
-	@Column(name = "USERNAME", nullable = false)
+	@Column(name = "USERNAME")
 	private String userName;
 	
-	@Column(name = "PASSWORD", nullable = false)
+	@Column(name = "PASSWORD")
 	private String password;
 	
-	@Column(name = "CREATEDBY", nullable = false)
+	@Column(name = "CREATEDBY")
 	private String createdBy;
 
-	@Column(name = "DATECREATED", nullable = false)
+	@Column(name = "DATECREATED")
 	@CreationTimestamp
 	private Timestamp dateCreated;
 
-	@Column(name = "DATEMODIFIED", nullable = false)
+	@Column(name = "DATEMODIFIED")
 	@UpdateTimestamp
 	private Timestamp dateModified;
 
-	@Column(name = "MODIFIEDBY", nullable = false)
+	@Column(name = "MODIFIEDBY")
 	private String modifiedBy;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="ACCOUNTPLANID", nullable = false)
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name="ACCOUNTPLANID")
 	private AccountPlan accountPlan;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="ACCOUNTSTATUSID", nullable = false)
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name="ACCOUNTSTATUSID")
 	private AccountStatus accountStatus;
 	
 	@OneToMany(mappedBy="account")
-	private Set<Exam> exams;
+	private List<Exam> exams;
 	
 
     @OneToOne(cascade = CascadeType.ALL)
@@ -152,13 +153,12 @@ public class Account implements Serializable {
 		this.accountStatus = accountStatus;
 	}
 	
-	public Set<Exam> getExams() {
+	public List<Exam> getExams() {
 		return exams;
 	}
 
-	public void setExams(Set<Exam> exams) {
+	public void setExams(List<Exam> exams) {
 		this.exams = exams;
 	}
-	
 	
 }

@@ -1,13 +1,12 @@
 package com.ptit.examonline.repository;
 
-import java.util.Set;
+import java.util.List;
 
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.ptit.examonline.dao.AccountDAO;
 import com.ptit.examonline.entity.Account;
@@ -41,10 +40,10 @@ public class AccountRepository implements AccountDAO{
 	}
 
 	@Override
-	public Set<Account> getAccounts() {
+	public List<Account> getAccounts() {
 		String hql = "FROM Account";
 		Query query= factory.getCurrentSession().createQuery(hql);
-		return (Set<Account>) query.list();
+		return query.list();
 	}
 
 	@Override
@@ -60,6 +59,22 @@ public class AccountRepository implements AccountDAO{
 		String hql = "FROM Account WHERE person.emailAddress=:email";
 		Query query= factory.getCurrentSession().createQuery(hql);
 		query.setParameter("email", email);
+		return (Account)query.uniqueResult();
+	}
+
+	@Override
+	public Account getAccountByAccountNumber(Long accountNumber) {
+		String hql = "FROM Account WHERE accountNumber=:accountNumber";
+		Query query= factory.getCurrentSession().createQuery(hql);
+		query.setParameter("accountNumber", accountNumber);
+		return (Account)query.uniqueResult();
+	}
+
+	@Override
+	public Account getAccountByUserName(String username) {
+		String hql = "FROM Account WHERE userName=:username";
+		Query query= factory.getCurrentSession().createQuery(hql);
+		query.setParameter("username", username);
 		return (Account)query.uniqueResult();
 	}
 

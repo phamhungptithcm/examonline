@@ -1,8 +1,9 @@
 package com.ptit.examonline.dto;
 
-public class AccountMessage {
+public class MessageChecking {
 	private String message;
 	private Boolean status;
+	private boolean isAdmin;
 	public String getMessage() {
 		return message;
 	}
@@ -14,6 +15,12 @@ public class AccountMessage {
 	}
 	public void setStatus(Boolean status) {
 		this.status = status;
+	}
+	public boolean getIsAdmin() {
+		return isAdmin;
+	}
+	public void setIsAdmin(boolean isAdmin) {
+		this.isAdmin = isAdmin;
 	}
 	
 	

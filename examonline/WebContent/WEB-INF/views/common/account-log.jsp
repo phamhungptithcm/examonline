@@ -1,6 +1,5 @@
 <%@ page pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jstl/fmt_rt" prefix="fmt"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <!DOCTYPE html>
 <html>
@@ -29,28 +28,27 @@
 								<li>
 									<h3 class="uk-card-title uk-text-center">Welcome back!</h3>
 									<div>
-										<form:form action="account/account-log.htm" method="post"
-											modelAttribute="signin">
+										<form name="formLogin" action="account/account-log.htm?signin" method="post" onsubmit="validationFormLogin()">
 											<div class="uk-margin">
 												<div class="uk-inline uk-width-1-1">
 													<span class="uk-form-icon" uk-icon="icon: user"></span>
-													<form:input path="userName" class="uk-input uk-form-large"
+													<input required  name="username" class="uk-input uk-form-large"
 														type="text" placeholder="Username/Email address"
-														value="${cookie.uid.value}" />
+														value="${cookie.uid.value}" autocomplete="off"/>
 												</div>
 											</div>
 											<div class="uk-margin">
 												<div class="uk-inline uk-width-1-1">
 													<span class="uk-form-icon" uk-icon="icon: lock"></span>
-													<form:input path="password" class="uk-input uk-form-large"
+													<input required name="password" class="uk-input uk-form-large"
 														type="password" placeholder="Password"
-														value="${cookie.pwd.value}" />
+														value="${cookie.pwd.value}" autocomplete="off"/>
 												</div>
 											</div>
 											<div class="uk-column-1-2 uk-margin">
 												<div class="uk-grid-small uk-child-width-auto uk-grid">
-													<label><form:checkbox path="remember"
-															class="uk-checkbox" /> Remember me?</label>
+													<label><input type="checkbox" name="remember"
+															class="uk-checkbox" value="true" checked/> Remember me?</label>
 												</div>
 												<div class="uk-text-right@s uk-text-center uk-text-small">
 													<a href="account/account-log.htm?forgot" uk-switcher-item="1">Forgot Password?</a>
@@ -65,7 +63,7 @@
 												Not registered? <a href="account/account-log.htm?signup" uk-switcher-item="2">Create
 													an account</a>
 											</div>
-										</form:form>
+										</form>
 									</div>
 								</li>
 								<li>
@@ -78,15 +76,15 @@
 										<form action="account/account-log.htm?forgot" method="post">
 											<div class="uk-margin">
 												<div class="uk-inline uk-width-1-1">
-													<span class="uk-form-icon" uk-icon="icon: mail"></span> <input
-														class="uk-input uk-form-large" type="text"
-														placeholder="Email Address" name="email">
+													<span class="uk-form-icon" uk-icon="icon: mail"></span> <input required
+														 class="uk-input uk-form-large" type="text"
+														placeholder="Email Address" name="email" autocomplete="off"/>
 												</div>
 											</div>
 											<div class="uk-column-1-2 uk-margin">
 												<div class="uk-text-lighter uk-text-middle">
 													<a href="account/account-log.htm?signin" uk-switcher-item="0"><span
-														uk-icon="chevron-left"></span> Back to login</a>
+														uk-icon="chevron-left"></span> Back to signin</a>
 												</div>
 												<div class="verve-right">
 													<button
@@ -101,13 +99,12 @@
 									<h3 class="uk-card-title uk-text-center">Sign up today.
 										It's free!</h3>
 									<div>
-										<form:form action="account/account-log.htm?signup" method="post"
-											modelAttribute="signup">
+										<form:form name="formSignup" action="account/account-log.htm?signup" method="post" modelAttribute="accountDTO" onsubmit="validationFormSubmit()">
 											<div class="uk-margin">
 												<div class="uk-inline uk-width-1-1">
 													<span class="uk-form-icon" uk-icon="icon: user"></span>
 													<form:input class="uk-input uk-form-large" type="text"
-														placeholder="UserName" path="userName" />
+														placeholder="UserName" path="username" autocomplete="off"/>
 												</div>
 											</div>
 
@@ -115,14 +112,14 @@
 												<div class="uk-inline uk-width-1-1">
 													<span class="uk-form-icon" uk-icon="icon: lock"></span>
 													<form:input class="uk-input uk-form-large" type="password"
-														placeholder="Password" path="password" />
+														placeholder="Password" path="password" autocomplete="off"/>
 												</div>
 											</div>
 											<div class="uk-margin">
 												<div class="uk-inline uk-width-1-1">
 													<span class="uk-form-icon" uk-icon="icon: lock"></span> <input
 														class="uk-input uk-form-large" type="password"
-														placeholder="Confirm Password" />
+														placeholder="Confirm Password" autocomplete="off"/>
 												</div>
 											</div>
 											<div class="uk-margin">
@@ -130,32 +127,26 @@
 													<div class="uk-inline uk-width-1-1">
 														<span class="uk-form-icon" uk-icon="icon: users"></span>
 														<form:input class="uk-input uk-form-large" type="text"
-															placeholder="First Name" path="firstName" />
+															placeholder="First Name" path="firstName" autocomplete="off"/>
 													</div>
 													<div class="uk-width-1-1">
-														<form:input class="uk-input uk-form-large" type="text"
-															placeholder="Last Name" path="lastName" />
+														<form:input  class="uk-input uk-form-large" type="text"
+															placeholder="Last Name" path="lastName" autocomplete="off"/>
 													</div>
 												</div>
 											</div>
-											<!-- <div
-											class="uk-margin uk-grid-small uk-child-width-auto uk-grid">
-											<label><input class="uk-radio" type="radio"
-												name="gender" checked> Male</label> <label><input
-												class="uk-radio" type="radio" name="gender"> Female</label>
-										</div> -->
 											<div class="uk-margin">
 												<div class="uk-inline uk-width-1-1">
 													<span class="uk-form-icon" uk-icon="icon: mail"></span>
 													<form:input class="uk-input uk-form-large" type="text"
-														placeholder="Email Address" path="email" />
+														placeholder="Email Address" path="email" autocomplete="off"/>
 												</div>
 											</div>
 											<div class="uk-margin">
 												<div class="uk-inline uk-width-1-1">
 													<span class="uk-form-icon" uk-icon="icon: receiver"></span>
 													<form:input class="uk-input uk-form-large" type="text"
-														placeholder="Phone Number" path="phoneNum" />
+														placeholder="Phone Number" path="phoneNum" autocomplete="off"/>
 												</div>
 											</div>
 											<div class="uk-column-1-2 uk-margin">

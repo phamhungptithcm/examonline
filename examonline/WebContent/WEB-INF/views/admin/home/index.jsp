@@ -3,9 +3,9 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>Manage Appointment - ExamOnline</title>
+<title>Home Admin - ExamOnline</title>
 </head>
 <body>
-	<jsp:include page="accountinfor.jsp"></jsp:include>
+	
 </body>
 </html>

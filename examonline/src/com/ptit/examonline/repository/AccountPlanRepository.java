@@ -1,5 +1,6 @@
 package com.ptit.examonline.repository;
 
+import java.util.List;
 import java.util.Set;
 
 import org.hibernate.Query;
@@ -40,17 +41,25 @@ public class AccountPlanRepository implements AccountPlanDAO{
 	}
 
 	@Override
-	public Set<AccountPlan> getAccountPlans() throws Exception{
-		String hql = "FROM AccountPlan";
+	public List<AccountPlan> getAccountPlans() throws Exception{
+		String hql = "FROM AccountPlan WHERE isActive = true";
 		Query query = factory.getCurrentSession().createQuery(hql);
-		return (Set<AccountPlan>) query.list();
+		return query.list();
 	}
 
 	@Override
-	public AccountPlan getAccountPlanByPlanCode(String code) throws Exception {
-		String hql = "FROM AccountPlan WHERE planCode=:code";
+	public AccountPlan getAccountPlanById(Long accountPlanId) throws Exception {
+		String hql = "FROM AccountPlan WHERE accountPlanId=:accountPlanId";
 		Query query= factory.getCurrentSession().createQuery(hql);
-		query.setParameter("code", code);
+		query.setParameter("accountPlanId", accountPlanId);
+		return (AccountPlan) query.uniqueResult();
+	}
+
+	@Override
+	public AccountPlan getAccountPlanByCode(String planCode) {
+		String hql = "FROM AccountPlan WHERE planCode=:planCode";
+		Query query= factory.getCurrentSession().createQuery(hql);
+		query.setParameter("planCode", planCode);
 		return (AccountPlan) query.uniqueResult();
 	}
 

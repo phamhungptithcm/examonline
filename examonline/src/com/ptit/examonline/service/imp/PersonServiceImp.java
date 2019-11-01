@@ -10,9 +10,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.ptit.examonline.dao.AccountDAO;
 import com.ptit.examonline.dao.PersonDAO;
-import com.ptit.examonline.dto.AccountMessage;
+import com.ptit.examonline.dto.MessageChecking;
 import com.ptit.examonline.dto.LoginInfoDTO;
-import com.ptit.examonline.dto.PersonInfoDTO;
+import com.ptit.examonline.dto.PersonDTO;
 import com.ptit.examonline.entity.Account;
 import com.ptit.examonline.entity.Person;
 import com.ptit.examonline.service.PersonService;
@@ -30,16 +30,15 @@ public class PersonServiceImp implements PersonService{
 	HttpServletRequest request;
 
 	@Override
-	public AccountMessage updatePersonInfo(PersonInfoDTO infoDTO) throws Exception {
+	public MessageChecking updatePersonInfo(PersonDTO infoDTO) throws Exception {
 		HttpSession session = request.getSession();
-		
 		LoginInfoDTO loginInfoDTO = (LoginInfoDTO) session.getAttribute("user");
 		
 		Account account = accountDAO.getAccount(loginInfoDTO.getUserName());
-		AccountMessage message = new AccountMessage();
+		MessageChecking message = new MessageChecking();
 		if(account != null) {
 			Person person = personDAO.getPersonById(account.getPerson().getPersonId());
-			String gender = infoDTO.getGender() == true ? "MALE":"FEMALE";
+			String gender = (infoDTO.getGender() == true || infoDTO.getGender() == null) ? "MALE":"FEMALE";
 			person.setLastName(infoDTO.getLastName());
 			person.setFirstName(infoDTO.getFirstName());
 			person.setAddress(infoDTO.getAddress());

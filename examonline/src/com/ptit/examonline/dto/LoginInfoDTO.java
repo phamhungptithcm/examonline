@@ -11,8 +11,18 @@ public class LoginInfoDTO implements Serializable{
 	
 	private String userName;
 	private String password;
+	private boolean isAdmin;
 	private Boolean remember;
 	
+	public LoginInfoDTO() {
+		super();
+	}
+	public LoginInfoDTO(String userName, String password, Boolean remember) {
+		super();
+		this.userName = userName;
+		this.password = password;
+		this.remember = remember;
+	}
 	public String getUserName() {
 		return userName;
 	}
@@ -31,4 +41,11 @@ public class LoginInfoDTO implements Serializable{
 	public void setRemember(Boolean remember) {
 		this.remember = remember;
 	}
+	public boolean getIsAdmin() {
+		return isAdmin;
+	}
+	public void setAdmin(boolean isAdmin) {
+		this.isAdmin = isAdmin;
+	}
+	
 }
