@@ -20,4 +20,10 @@ public interface ExamService {
 
 	public ResultOverviewDTO getResults(Long examId) throws Exception;
 	public List<Exam> getExamss() throws Exception;
+
+	public QuizDTO getExamByExamId(Long examId) throws Exception;
+
+	public boolean updateExam(Long examId, Double score);
+
+	public List<Exam> getExamss(int pageNo, int pageSize);
 }

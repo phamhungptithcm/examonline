@@ -11,7 +11,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import com.ptit.examonline.dao.AccountStatusDAO;
 import com.ptit.examonline.entity.AccountStatus;
 
-
 @Repository
 @EnableTransactionManagement
 public class AccountStatusRepository implements AccountStatusDAO {
@@ -40,6 +39,7 @@ public class AccountStatusRepository implements AccountStatusDAO {
 		factory.getCurrentSession().refresh(entity);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<AccountStatus> getAccountStatuses() throws Exception {
 		String hql = "FROM AccountStatus WHERE isActive = 1";
@@ -50,7 +50,7 @@ public class AccountStatusRepository implements AccountStatusDAO {
 	@Override
 	public AccountStatus getAccountStatusById(Long accountStatusId) throws Exception {
 		String hql = "FROM AccountStatus WHERE isActive = 1 AND accountStatusId=:id";
-		Query query= factory.getCurrentSession().createQuery(hql);
+		Query query = factory.getCurrentSession().createQuery(hql);
 		query.setParameter("id", accountStatusId);
 		return (AccountStatus) query.uniqueResult();
 	}
@@ -58,8 +58,18 @@ public class AccountStatusRepository implements AccountStatusDAO {
 	@Override
 	public AccountStatus getAccountStatusByCode(String statusCode) throws Exception {
 		String hql = "FROM AccountStatus WHERE isActive = 1 AND accoutStatusCode=:statusCode";
-		Query query= factory.getCurrentSession().createQuery(hql);
+		Query query = factory.getCurrentSession().createQuery(hql);
 		query.setParameter("statusCode", statusCode);
 		return (AccountStatus) query.uniqueResult();
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<AccountStatus> getAccountStatuses(int pageNo, int pageSize) {
+		String hql = "FROM AccountStatus WHERE isActive = 1";
+		Query query = factory.getCurrentSession().createQuery(hql);
+		query.setFirstResult(pageNo * pageSize);
+		query.setMaxResults(pageSize);
+		return query.list();
 	}
 }

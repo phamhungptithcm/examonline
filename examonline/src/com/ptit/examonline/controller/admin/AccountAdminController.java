@@ -32,7 +32,6 @@ public class AccountAdminController extends HelperController{
 	@RequestMapping(value ="index")
 	public String index(Model model) {
 		try {
-			model.addAttribute("accounts", accountService.getAccounts());
 			model.addAttribute("accountStatuses",accountStatusService.getAccountStatuses());
 			model.addAttribute("accountPlans",accountPlanService.getAccountPlans());
 		} catch (Exception e) {
@@ -41,6 +40,17 @@ public class AccountAdminController extends HelperController{
 		return viewAdminPages("account/index.jsp");
 	}
 	
+	@RequestMapping("get-page")
+	public String getPage(Model model, @RequestParam(value = "pageNo", defaultValue = "0") int pageNo,
+			@RequestParam(value = "pageSize", defaultValue = "5") int pageSize) {
+		System.out.println(pageNo + "-" + pageSize);
+		try {
+			model.addAttribute("accounts", accountService.getAccounts(pageNo, pageSize));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "admin/account/list";
+	}
 	@ResponseBody
 	@RequestMapping("delete")
 	public String delete(@RequestParam("accountNumber") Long accountNumber) {
@@ -106,5 +116,19 @@ public class AccountAdminController extends HelperController{
 			e.printStackTrace();
 		}
 		return "redirect: index.htm";
+	}
+	
+	@ResponseBody
+	@RequestMapping("get-page-count")
+	public String getPageCount(Model model, @RequestParam(value = "pageSize", defaultValue = "5") int pageSize) {
+		int pageCount = 0;
+		try {
+			int rowCount = accountService.getAccounts().size();
+			pageCount = (int) Math.ceil(1.0 * rowCount / pageSize);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return String.valueOf(pageCount);
 	}
 }

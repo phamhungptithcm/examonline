@@ -1,10 +1,8 @@
 package com.ptit.examonline.repository;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
-import java.util.Set;
 
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
@@ -29,7 +27,7 @@ public class QuestionRepository implements QuestionDAO {
 
 	@Override
 	public void update(Question entity) {
-		factory.getCurrentSession().merge(entity);
+		factory.getCurrentSession().update(entity);
 
 	}
 
@@ -44,14 +42,34 @@ public class QuestionRepository implements QuestionDAO {
 		factory.getCurrentSession().refresh(entity);
 
 	}
-
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Question> getQuestions() {
 		String hql = "FROM Question";
 		Query query = factory.getCurrentSession().createQuery(hql);
 		return query.list();
 	}
-
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Question> getQuestions(int pageNo, int pageSize) {
+		String hql = "FROM Question ";
+		Query query = factory.getCurrentSession().createQuery(hql);
+		query.setFirstResult(pageNo * pageSize);
+		query.setMaxResults(pageSize);
+		List<Question> questions = query.list();
+		return questions;
+	}
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Question> getQuestions(int pageNo, int pageSize, int level) {
+		String hql = "FROM Question WHERE level=:level";
+		Query query = factory.getCurrentSession().createQuery(hql);
+		query.setParameter("level", level);
+		query.setFirstResult(pageNo * pageSize);
+		query.setMaxResults(pageSize);
+		return query.list();
+	}
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Question> getQuestionsRandom(Integer level) {
 		String hql = "FROM Question q WHERE q.level=:level";
@@ -61,15 +79,10 @@ public class QuestionRepository implements QuestionDAO {
 	}
 
 	private List<Question> getRandomList(List<Question> questions) {
-//		int index;
 		int numQuestion = 10;
 		Random random = new Random();
 		List<Question> result = new ArrayList<Question>();
 		try {
-//			for (int i = 0; i < 10; i++) {
-//				index = random.nextInt(questions.size());
-//				result.add(questions.get(index));
-//			}
 			for (int i = 0; i < numQuestion; i++) {
 		        int randomIndex = random.nextInt(questions.size());
 		        result.add(questions.get(randomIndex));

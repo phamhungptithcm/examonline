@@ -1,7 +1,6 @@
 package com.ptit.examonline.dao;
 
 import java.util.List;
-import java.util.Set;
 
 import com.ptit.examonline.entity.Account;
 
@@ -15,4 +14,5 @@ public interface AccountDAO {
 	public Account getAcountByEmail(String email);
 	public Account getAccountByAccountNumber(Long accountNumber);
 	public Account getAccountByUserName(String username);
+	public List<Account> getAccounts(int pageNo, int pageSize);
 }

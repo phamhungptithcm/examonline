@@ -3,11 +3,9 @@ package com.ptit.examonline.dto;
 import java.io.Serializable;
 
 public class PersonDTO implements Serializable {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 5593379947547812447L;
 	
+	private Long personId;
 	private String accountPlan;
 	private String accountStatus;
 	private String fullName;
@@ -106,6 +104,14 @@ public class PersonDTO implements Serializable {
 
 	public void setDateOfBirth(String dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
+	}
+
+	public Long getPersonId() {
+		return personId;
+	}
+
+	public void setPersonId(Long personId) {
+		this.personId = personId;
 	}
 	
 	

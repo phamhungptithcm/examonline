@@ -23,6 +23,19 @@ function updateAccountStatus(id) {
 		this.showMessage('top-end','You are now in "Add New" mode.','warning');
 	}
 }
+function updateQuiz(id) {
+	$.ajax({
+		url : "admin/quiz/update.htm",
+		data : {
+			examId : id
+		},
+		dataType : "json",
+		success : function(response) {
+			$('#examId').val(response.examId); 
+			$('#score').val(response.score); 
+		}
+	});
+}
 function updateAccountPlan(id) {
 	if (switchMode.checked == false) {
 		$.ajax({
@@ -100,10 +113,30 @@ function getAction(id,mode) {
 	case "account_main":
 		this.deleteAccount(id);
 		break;
-
+	case "question":
+		this.deleteQuestion(id);
+		break;
 	default:
 		break;
 	}
+}
+function deleteQuestion(id) {
+	var element = document.getElementById(id);
+	  $.ajax({
+			url : "admin/question/delete.htm",
+			data : {
+				id : id
+			},
+			dataType : "json",
+			success : function(response) {
+				if (response != "0") {
+					this.showMessage('top-end','Successful','success');
+					element.remove();
+				} else {
+					this.showMessage('top-end','Deleted fail','error');
+				}
+			}
+		});
 }
 function deleteStatus(id) {
 	var element = document.getElementById(id);
@@ -116,6 +149,7 @@ function deleteStatus(id) {
 			success : function(response) {
 				if (response == true) {
 					element.remove();
+					this.showMessage('top-end','Successful','success');
 				} else {
 					this.showMessage('top-end','Deleted fail','error');
 				}
@@ -133,6 +167,7 @@ function deletePlan(id) {
 			success : function(response) {
 				if (response == true) {
 					element.remove();
+					this.showMessage('top-end','Successful','success');
 				} else {
 					this.showMessage('top-end','Deleted fail','error');
 				}
@@ -160,21 +195,6 @@ function deleteAccount(id) {
 		});
 }
 
-function toJSONString( form ) {
-	var obj = {};
-	var elements = form.querySelectorAll( "input, select, textarea" );
-	for( var i = 0; i < elements.length; ++i ) {
-		var element = elements[i];
-		var name = element.getAttribute("name");
-		var value = element.getAttribute("value");
-
-		if( name ) {
-			obj[ name ] = value;
-		}
-	}
-
-	return JSON.stringify( obj );
-}
 function showMessage(position, title, type) {
 	const Toast = Swal.mixin({
 		  toast: true,

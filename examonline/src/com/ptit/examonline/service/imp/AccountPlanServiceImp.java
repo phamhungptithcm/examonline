@@ -2,30 +2,20 @@ package com.ptit.examonline.service.imp;
 
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.ptit.examonline.dao.AccountDAO;
 import com.ptit.examonline.dao.AccountPlanDAO;
 import com.ptit.examonline.dto.AccountPlanDTO;
-import com.ptit.examonline.dto.LoginInfoDTO;
 import com.ptit.examonline.dto.MessageChecking;
-import com.ptit.examonline.entity.Account;
 import com.ptit.examonline.entity.AccountPlan;
+import com.ptit.examonline.helper.HelperService;
 import com.ptit.examonline.service.AccountPlanService;
 
 @Component
-public class AccountPlanServiceImp implements AccountPlanService{
+public class AccountPlanServiceImp extends HelperService  implements AccountPlanService {
 	@Autowired
 	private AccountPlanDAO accountPlanDAO;
-	
-	@Autowired
-	HttpSession session;
-	
-	@Autowired
-	private AccountDAO accountDAO;
 
 	@Override
 	public boolean delete(Long accountPlanId) throws Exception {
@@ -38,19 +28,9 @@ public class AccountPlanServiceImp implements AccountPlanService{
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return false;
+		return result;
 	}
 
-	@Override
-	public AccountPlan update(Long accountPlanId) throws Exception {
-		return null;
-	}
-
-	@Override
-	public AccountPlan save(Long accountPlanId) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public List<AccountPlan> getAccountPlans() throws Exception {
@@ -106,9 +86,10 @@ public class AccountPlanServiceImp implements AccountPlanService{
 		
 		return message;
 	}
-	private Account getCurrentAccount() throws Exception {
-		LoginInfoDTO loginInfoDTO = (LoginInfoDTO) session.getAttribute("user");
-		
-		return accountDAO.getAccount(loginInfoDTO.getUserName());
+
+
+	@Override
+	public List<AccountPlan> getAccountPlans(int pageNo, int pageSize) {		
+		return accountPlanDAO.getAccountPlans(pageNo,pageSize);
 	}
 }

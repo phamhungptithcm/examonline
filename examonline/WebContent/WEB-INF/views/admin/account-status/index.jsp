@@ -13,41 +13,13 @@
 		</h1>
 		<div class="row uk-margin-top">
 			<div class="col-sm-6">
-				<table class="uk-table uk-table-hover uk-table-divider">
-					<thead>
-						<tr>
-							<th>STT</th>
-							<th>STATUS CODE</th>
-							<th>SHORT DESCRIPTION</th>
-							<th><a href="" uk-icon="icon: trash" style="color: #F93434;"
-								uk-tooltip="Move all to trash"></a></th>
-						</tr>
-					</thead>
-					<tbody>
-						<c:forEach var="status" items="${accountStatuses}"
-							varStatus="indexStatus">
-							<tr id="${status.accountStatusId}"
-								onclick="updateAccountStatus(${status.accountStatusId})">
-								<td>${indexStatus.index +1 }</td>
-								<td>${status.accoutStatusCode}</td>
-								<td>${status.shortDescription}</td>
-								<td><a uk-icon="icon: trash" style="color: #F93434;"
-									uk-tooltip="Move to trash"
-									onclick="deleteData(${status.accountStatusId},'account_status')"></a></td>
-							</tr>
-						</c:forEach>
-					</tbody>
-				</table>
-				<div>
-					<ul class="uk-pagination uk-flex-center" uk-margin>
-						<li><a href="#"><span uk-pagination-previous></span></a></li>
-						<li><a href="#">1</a></li>
-						<li class="uk-disabled"><span>...</span></li>
-						<li><a href="#">5</a></li>
-						<li><a href="#">6</a></li>
-						<li class="uk-active"><span>7</span></li>
-						<li><a href="#">8</a></li>
-						<li><a href="#"><span uk-pagination-next></span></a></li>
+				<div id="result"></div>
+				<div class="uk-pagination uk-flex-center pager" uk-margin>
+					<ul class="uk-pagination uk-flex-center pager" uk-margin>
+						<li class="link-paging"><a href="#"><span uk-pagination-previous></span></a></li>
+						<li class="uk-disabled"><span id="curpage">1 of 1
+								pages</span></li>
+						<li class="link-paging"><a href="#"><span uk-pagination-next></span></a></li>
 					</ul>
 				</div>
 			</div>
@@ -70,14 +42,17 @@
 								<div class="uk-margin" style="padding: 10px 0px 40px 0px">
 									<form class="uk-grid-small" id="accForm"
 										action="admin/account-status/update.htm" method="post" uk-grid>
-										<input id="statusId" class="uk-input" type="text" name="accountStatusId"
-											placeholder="Account Status Code" style="display: none">
+										<input id="statusId" class="uk-input" type="text"
+											name="accountStatusId" placeholder="Account Status Code"
+											style="display: none">
 										<div class="uk-width-1-4@s">
 											<input id="code" class="uk-input" type="text"
-												placeholder="Account Status Code" name="code" disabled="disabled">
+												placeholder="Account Status Code" name="code"
+												disabled="disabled">
 										</div>
 										<div class="uk-width-1-2@s">
-											<input id="shortDescription" class="uk-input" name="shortDescription" type="text"
+											<input id="shortDescription" class="uk-input"
+												name="shortDescription" type="text"
 												placeholder="Short Description">
 										</div>
 										<div class="uk-width-1-4@s">
@@ -96,10 +71,11 @@
 	<script type="text/javascript" src="custom/js/helper.js"></script>
 	<script type="text/javascript" src="custom/js/ajax.js"></script>
 	<script type="text/javascript">
-	 var myParam = location.search.split('status=')[1];
-	 	if(myParam == 'true') {
-	 		showMessage('top-end','Successful','success');
-	 	}
+		var myParam = location.search.split('status=')[1];
+		if (myParam == 'true') {
+			showMessage('top-end', 'Successful', 'success');
+		}
 	</script>
+	<script type="text/javascript" src="custom/js/panigationStatus.js"></script>
 </body>
 </html>

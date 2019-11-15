@@ -26,8 +26,6 @@ public interface AccountService {
 
 	public MessageChecking changePassword(String userName, String password) throws Exception;
 
-	public Account getCurrentAccount() throws Exception;
-
 	public Account getAccount(String userName) throws Exception;
 
 	public List<Account> getAccounts() throws Exception;
@@ -41,4 +39,6 @@ public interface AccountService {
 	public MessageChecking updateAccount(AccountDTO accountDTO) throws Exception;
 
 	public MessageChecking addAnNewAccount(AccountDTO accountDTO) throws Exception;
+
+	public List<Account> getAccounts(int pageNo, int pageSize) throws Exception;
 }

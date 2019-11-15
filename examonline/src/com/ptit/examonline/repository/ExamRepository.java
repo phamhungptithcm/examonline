@@ -1,7 +1,6 @@
 package com.ptit.examonline.repository;
 
 import java.util.List;
-import java.util.Set;
 
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
@@ -42,14 +41,16 @@ public class ExamRepository implements ExamDAO{
 		factory.getCurrentSession().refresh(entity);
 		
 	}
-
+	
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Exam> getExams() {
 		String hql = "FROM Exam";
 		Query query = factory.getCurrentSession().createQuery(hql);
 		return query.list();
 	}
-
+	
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Exam> getExamsByUsername(String username) {
 		String hql = "FROM Exam e WHERE e.account.userName=:username";
@@ -64,5 +65,15 @@ public class ExamRepository implements ExamDAO{
 		Query query = factory.getCurrentSession().createQuery(hql);
 		query.setParameter("examId", examId);
 		return (Exam) query.uniqueResult();
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Exam> getExams(int pageNo, int pageSize) {
+		String hql = "FROM Exam";
+		Query query = factory.getCurrentSession().createQuery(hql);
+		query.setFirstResult(pageNo*pageSize);
+		query.setMaxResults(pageSize);
+		return query.list();
 	}
 }

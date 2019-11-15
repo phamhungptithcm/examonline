@@ -47,19 +47,25 @@
 			<h3 class="uk-card-title uk-text-center">Update account
 				information</h3>
 			<form:form action="account-management/account-edit.htm?updateinfo"
-				method="post" modelAttribute="personInfo">
+				method="post" modelAttribute="personDTO">
 				<div class=" row uk-margin">
-					<div class="col-md-6">
+					<div class="col-md-2">
+						<form:input path="personId" class="uk-input uk-form-large"
+							type="text" readonly="true" />
+					</div>
+					<div class="col-md-5">
 						<div class="uk-inline uk-width-1-1">
 							<span class="uk-form-icon" uk-icon="icon: users"></span>
 							<form:input path="firstName" class="uk-input uk-form-large"
 								type="text" placeholder="First Name" />
+							<form:errors path="firstName" cssClass="uk-alert-danger" />
 						</div>
 					</div>
-					<div class="col-md-6">
+					<div class="col-md-5">
 						<div class="uk-width-1-1">
 							<form:input path="lastName" class="uk-input uk-form-large"
 								type="text" placeholder="Last Name" />
+							<form:errors path="lastName" cssClass="uk-alert-danger" />
 						</div>
 					</div>
 				</div>
@@ -70,17 +76,18 @@
 								class="uk-text-middle">Attach binaries by dropping them
 								here or</span>
 							<div uk-form-custom>
-								<input type="file" accept="image/x-png,image/gif,image/jpeg"> <span class="uk-link">selecting
-									one</span>
+								<input type="file" accept="image/x-png,image/gif,image/jpeg">
+								<span class="uk-link">selecting one</span>
 							</div>
 						</div>
 					</div>
 					<div class="col-md-6">
 						<div class="uk-grid-small uk-child-width-auto uk-grid">
 							<label> <form:radiobutton path="gender" class="uk-radio"
-									value="true"/> Male
+									value="true" /> Male
 							</label> <label><form:radiobutton path="gender" class="uk-radio"
 									value="false" /> Female</label>
+							<form:errors path="gender" cssClass="uk-alert-danger" />
 						</div>
 					</div>
 
@@ -92,6 +99,7 @@
 						<span class="uk-form-icon" uk-icon="icon: mail"></span>
 						<form:input path="email" class="uk-input uk-form-large"
 							type="text" placeholder="Email Address" />
+						<form:errors path="email" cssClass="uk-alert-danger" />
 					</div>
 				</div>
 				<div class="uk-margin">
@@ -99,6 +107,7 @@
 						<span class="uk-form-icon" uk-icon="icon: receiver"></span>
 						<form:input path="phoneNum" class="uk-input uk-form-large"
 							type="text" placeholder="Phone Number" />
+						<form:errors path="phoneNum" cssClass="uk-alert-danger" />
 					</div>
 				</div>
 				<div class="uk-margin">
@@ -106,6 +115,7 @@
 						<span class="uk-form-icon" uk-icon="icon: location"></span>
 						<form:input path="address" class="uk-input uk-form-large"
 							type="text" placeholder="Home Address" />
+						<form:errors path="address" cssClass="uk-alert-danger" />
 					</div>
 				</div>
 				<div class="uk-margin verve-right">

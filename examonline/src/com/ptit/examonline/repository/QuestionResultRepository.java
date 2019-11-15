@@ -40,7 +40,8 @@ public class QuestionResultRepository implements QuestionResultDAO {
 		factory.getCurrentSession().refresh(entity);
 
 	}
-
+	
+	@SuppressWarnings("unchecked")
 	@Override
 	public Set<QuestionResult> getQuestionResults() {
 		String hql = "FROM QuestionResult";

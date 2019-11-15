@@ -11,6 +11,9 @@ public class HelperConst {
 	public static final String ACCOUNTNOTACTIVE = "This account is not actived. Please contact administrator!";
 	public static final String ACCOUTNEXISTED = "The username already exists!";
 	
+	public static final String REGULAR_EMAIL = "^(([^<>()\\[\\]\\\\.,;:\\s@\"]+(\\.[^<>()\\[\\]\\\\.,;:\\s@\"]+)*)|(\".+\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$";
+	public static final String REGULAR_PHONE = "^0\\d{9,10}$";
+	
 	private static Map<Integer, String> map = new HashMap<Integer, String>();
 
 	public HelperConst() {

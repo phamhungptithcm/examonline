@@ -3,7 +3,11 @@ package com.ptit.examonline.controler.user;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,8 +18,8 @@ import com.ptit.examonline.dto.LoginInfoDTO;
 import com.ptit.examonline.dto.MessageChecking;
 import com.ptit.examonline.helper.HelperController;
 import com.ptit.examonline.service.AccountService;
-import com.ptit.examonline.service.PersonService;
 import com.ptit.examonline.service.ResultService;
+import com.ptit.examonline.validation.AccountDTOValidation;
 
 @Controller
 @RequestMapping("account")
@@ -25,10 +29,15 @@ public class AccountController extends HelperController {
 	private AccountService accountService;
 
 	@Autowired
-	private PersonService personService;
-	
-	@Autowired
 	ResultService resultService;
+
+	@Autowired
+	AccountDTOValidation accountDTOValidation;
+
+	@InitBinder
+	protected void initBinder(WebDataBinder binder) {
+		binder.addValidators(accountDTOValidation);
+	}
 
 	@GetMapping(value = "account-log")
 	public String signin(Model model) {
@@ -38,11 +47,10 @@ public class AccountController extends HelperController {
 		return viewUserPages("../common/account-log.jsp");
 	}
 
-	@PostMapping(value = "account-log", params="signin")
-	public String signin(Model model, @RequestParam(value="username") String username,
-			 @RequestParam("password") String password, 
-			 @RequestParam("remember") boolean remember,
-			 @ModelAttribute(value="accountDTO", binding=false) AccountDTO accountDTO) {
+	@PostMapping(value = "account-log", params = "signin")
+	public String signin(Model model, @RequestParam(value = "username") String username,
+			@RequestParam("password") String password, @RequestParam("remember") boolean remember,
+			@ModelAttribute(value = "accountDTO", binding = false) AccountDTO accountDTO) {
 		LoginInfoDTO user = new LoginInfoDTO(username, password, remember);
 		MessageChecking message = null;
 		try {
@@ -55,12 +63,12 @@ public class AccountController extends HelperController {
 					this.removeCookie("uid");
 					this.removeCookie("pwd");
 				}
-				if(message.getIsAdmin()) {
+				if (message.getIsAdmin()) {
 					return "redirect:../admin/home/index.htm";
 				} else {
 					return "redirect:../home/index.htm";
 				}
-				
+
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -71,15 +79,18 @@ public class AccountController extends HelperController {
 
 	@GetMapping(value = "account-log", params = "signup")
 	public String signup(Model model) {
-		
+
 		model.addAttribute("accountDTO", new AccountDTO());
-		
+
 		return viewUserPages("../common/account-log.jsp");
 	}
 
 	@PostMapping(value = "account-log", params = "signup")
-	public String signup(Model model, @ModelAttribute("accountDTO") AccountDTO accountDTO) {
+	public String signup(Model model, @ModelAttribute("accountDTO") @Validated  AccountDTO accountDTO, BindingResult result) {
 		MessageChecking message = null;
+		if(result.hasErrors()) {
+			return viewUserPages("../common/account-log.jsp");
+		}
 		try {
 			message = accountService.signup(accountDTO);
 			if (message.getStatus()) {

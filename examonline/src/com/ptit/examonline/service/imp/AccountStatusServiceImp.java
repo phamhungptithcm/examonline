@@ -2,30 +2,20 @@ package com.ptit.examonline.service.imp;
 
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.ptit.examonline.dao.AccountDAO;
 import com.ptit.examonline.dao.AccountStatusDAO;
 import com.ptit.examonline.dto.AccountStatusDTO;
-import com.ptit.examonline.dto.LoginInfoDTO;
 import com.ptit.examonline.dto.MessageChecking;
-import com.ptit.examonline.entity.Account;
 import com.ptit.examonline.entity.AccountStatus;
+import com.ptit.examonline.helper.HelperService;
 import com.ptit.examonline.service.AccountStatusService;
 
 @Component
-public class AccountStatusServiceImp implements AccountStatusService{
+public class AccountStatusServiceImp extends HelperService  implements AccountStatusService{
 	@Autowired
 	private AccountStatusDAO statusDAO;
-	
-	@Autowired
-	private AccountDAO accountDAO;
-	
-	@Autowired
-	HttpSession session;
 
 	@Override
 	public boolean delete(Long accountStatusId) throws Exception {
@@ -39,20 +29,6 @@ public class AccountStatusServiceImp implements AccountStatusService{
 		}
 		return result;
 	}
-
-	@Override
-	public AccountStatus update(Long accountStatusId) throws Exception {
-		AccountStatus accountStatus= statusDAO.getAccountStatusById(accountStatusId);
-		
-		return null;
-	}
-
-	@Override
-	public AccountStatus save(Long accountStatusId) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	@Override
 	public List<AccountStatus> getAccountStatuses() throws Exception {
 		return statusDAO.getAccountStatuses();
@@ -98,10 +74,8 @@ public class AccountStatusServiceImp implements AccountStatusService{
 		}
 		return messageChecking;
 	}
-
-	private Account getCurrentAccount() throws Exception {
-		LoginInfoDTO loginInfoDTO = (LoginInfoDTO) session.getAttribute("user");
-		
-		return accountDAO.getAccount(loginInfoDTO.getUserName());
+	@Override
+	public List<AccountStatus> getAccountStatuses(int pageNo, int pageSize) {
+		return statusDAO.getAccountStatuses(pageNo,pageSize);
 	}
 }

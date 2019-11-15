@@ -4,8 +4,51 @@ function validationFormLogin() {
 	if(!checkUsername) {
 		
 	}
-	
-	
+}
+function validationFormSignUp() {
+	var error = document.getElementsByClassName("error-massage");
+	for(i = 0; i < error.length; i++) {
+		document.getElementsByClassName("error-massage")[i].innerHTML = "";
+	}
+	var isValid = true;
+	/*Validate Username*/
+	var username = document.forms["formSignup"]["username"].value;
+	var checkUsername =  validateUsername(username);
+	if(!checkUsername) {
+		document.getElementById("username-error").innerHTML = "Enter a valid username";
+		isValid = false;
+	}
+	/*Validate Password*/
+	var password = document.forms["formSignup"]["password"].value;
+	var checkPassword = validatePassword(password);
+	if(!checkPassword) {
+		document.getElementById("password-error").innerHTML = "Passwords must be uppercase, lowercase, special characters and at least 8 characters long!";
+		isValid = false;
+	} else {
+		var repassword = document.getElementById("repassword").value;
+		if (repassword === "") {
+			document.getElementById("repassword-error").innerHTML = "Enter a valid password";
+			isValid = false;
+		} else if (repassword !== password){
+			document.getElementById("repassword-error").innerHTML = "Password doesn't match. Please try again!";
+			isValid = false;
+		}
+	}
+	/*Validate Email*/
+	var email = document.forms["formSignup"]["email"].value;
+	var checkEmail = validateEmail(email);
+	if(!checkEmail) {
+		document.getElementById("email-error").innerHTML = "Invalid email! Please enter valid email";
+		isValid = false;
+	}
+	/*Validate Phone Number*/
+	var phoneNumber = document.forms["formSignup"]["phoneNum"].value;
+	var checkPhoneNumber = validatePhone(phoneNumber);
+	if(!checkPhoneNumber) {
+		document.getElementById("phonenumber-error").innerHTML = "Invalid phone number! Please enter valid phone number";
+		isValid = false;
+	}
+	return isValid;
 }
 
 function validateEmail(email) {

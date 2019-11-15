@@ -29,11 +29,11 @@ import com.ptit.examonline.entity.Exam;
 import com.ptit.examonline.entity.Question;
 import com.ptit.examonline.entity.QuestionResult;
 import com.ptit.examonline.helper.HelperConst;
-import com.ptit.examonline.service.AccountService;
+import com.ptit.examonline.helper.HelperService;
 import com.ptit.examonline.service.ExamService;
 
 @Component
-public class ExamServiceImp implements ExamService {
+public class ExamServiceImp extends HelperService implements ExamService {
 	private static final String FORMATDATE_COMPARE = "MM/dd/yyyy";
 	private static final String FORMATDATE_DISPLAY = "dd MMM";
 	private static final String FORMATIME_DISPLAY = "HH:mm a";
@@ -46,14 +46,11 @@ public class ExamServiceImp implements ExamService {
 	@Autowired
 	private QuestionResultDAO questionResultDAO;
 
-	@Autowired
-	private AccountService accountService;
-
 	private Date curDate = new Date();
 
 	@Override
 	public ResultOverviewDTO submitQuiz(Collection<QuizDTO> quizDTOs) throws Exception {
-		Account curUser = accountService.getCurrentAccount();
+		Account curUser = getCurrentAccount();
 		ResultOverviewDTO dto = caculateResultQuiz(quizDTOs);
 		Exam exam = new Exam();
 		exam.setCreatedBy(curUser.getUserName());
@@ -76,7 +73,7 @@ public class ExamServiceImp implements ExamService {
 
 			questionResultDAO.insert(result);
 		}
-
+		System.out.println(dto.getResultQuizDTOs().size());
 		return dto;
 	}
 
@@ -94,11 +91,15 @@ public class ExamServiceImp implements ExamService {
 			questionDTO.setIsCorrect(false);
 			resultQuizDTO.setAnswerOrder(questionDTO.getsAnswerOrder());
 			for (AnswerDTO answerDTO : questionDTO.getAnswerDTOs()) {
-				if (questionDTO.getAnswerId().equals(answerDTO.getAnswerId()) && answerDTO.getStatus().equals(true)) {
-					questionDTO.setIsCorrect(true);
-					score += 1.0;
-					break;
+				if (answerDTO != null && questionDTO.getAnswerId() != null) {
+					if (questionDTO.getAnswerId().equals(answerDTO.getAnswerId())
+							&& answerDTO.getStatus().equals(true)) {
+						questionDTO.setIsCorrect(true);
+						score += 1.0;
+						break;
+					}
 				}
+
 			}
 			resultQuizDTOs.add(resultQuizDTO);
 		}
@@ -127,7 +128,7 @@ public class ExamServiceImp implements ExamService {
 					QuestionDTO questionDTO = new QuestionDTO();
 					questionDTO.setAnswerDTOs(answerDTOs);
 					questionDTO.setContent(question.getContent());
-					
+
 					questionDTO.setQuestionId(question.getQuestionId());
 					questionDTO.setAnswerId(quizDTO.getAnswerId());
 					questionDTO.setsAnswerOrder(Arrays.toString(quizDTO.getAnswerOrder().toArray()));
@@ -181,7 +182,7 @@ public class ExamServiceImp implements ExamService {
 			List<ExamDetailDTO> examDetails = new ArrayList<>();
 			Integer subjectId = null;
 			for (Exam exam : exams) {
-				if(exam.getQuestionResults() != null && exam.getQuestionResults().size() > 0) {
+				if (exam.getQuestionResults() != null && exam.getQuestionResults().size() > 0) {
 					Long questionId = exam.getQuestionResults().get(0).getQuestionId();
 					Question question = questionDAO.getQuestionByQuestionId(questionId);
 					subjectId = question.getLevel();
@@ -191,7 +192,7 @@ public class ExamServiceImp implements ExamService {
 				if (examDTO.getStrStartDate().equals(sDate)) {
 					ExamDetailDTO examDetail = new ExamDetailDTO();
 					examDetail.setExamId(exam.getExamId());
-					examDetail.setExamName("Made the "+HelperConst.getSubject(subjectId)+" quiz");
+					examDetail.setExamName("Made the " + HelperConst.getSubject(subjectId) + " quiz");
 					examDetail.setScore(exam.getScore());
 					examDetail.setStartTime(convertDateToStirng(date, FORMATIME_DISPLAY));
 					examDetails.add(examDetail);
@@ -230,7 +231,7 @@ public class ExamServiceImp implements ExamService {
 			overviewDTO.setResultQuizDTOs(resultQuizDTOs);
 			overviewDTO.setScore(exam.getScore());
 			overviewDTO.setTime(13);
-			
+
 		}
 		return overviewDTO;
 	}
@@ -247,7 +248,7 @@ public class ExamServiceImp implements ExamService {
 			answerDTO.setContent(anwser.getContent());
 			answerDTO.setStatus(anwser.getStatus());
 			answerDTOs.add(answerDTO);
-			if (answerId.equals(anwser.getAnwserId()) && anwser.getStatus().equals(true)) {
+			if (answerId != null && anwser != null && answerId.equals(anwser.getAnwserId()) && anwser.getStatus().equals(true)) {
 				isCorrect = true;
 			}
 		}
@@ -264,5 +265,42 @@ public class ExamServiceImp implements ExamService {
 	public List<Exam> getExamss() throws Exception {
 		return examDAO.getExams();
 	}
-	
+
+	@Override
+	public QuizDTO getExamByExamId(Long examId) throws Exception {
+		Exam exam = examDAO.getExamsByExamId(examId);
+		QuizDTO dto = null;
+		if (exam != null) {
+			dto = new QuizDTO();
+			dto.setExamId(examId);
+			dto.setScore(exam.getScore());
+		}
+
+		return dto;
+	}
+
+	@Override
+	public boolean updateExam(Long examId, Double score) {
+		Date date = new Date();
+		Timestamp timestamp = new Timestamp(date.getTime());
+		boolean result = false;
+		try {
+			Exam exam = examDAO.getExamsByExamId(examId);
+			if (exam != null) {
+				exam.setScore(score);
+				exam.setModifiedBy(getCurrentAccount().getUserName());
+				exam.setDateModified(timestamp);
+				examDAO.update(exam);
+				result = true;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	@Override
+	public List<Exam> getExamss(int pageNo, int pageSize) {
+		return examDAO.getExams(pageNo,pageSize);
+	}
 }

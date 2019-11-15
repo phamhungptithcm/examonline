@@ -1,7 +1,6 @@
 package com.ptit.examonline.repository;
 
 import java.util.List;
-import java.util.Set;
 
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
@@ -39,7 +38,8 @@ public class AccountPlanRepository implements AccountPlanDAO{
 	public void refresh(AccountPlan entity) throws Exception{
 		factory.getCurrentSession().refresh(entity);
 	}
-
+	
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<AccountPlan> getAccountPlans() throws Exception{
 		String hql = "FROM AccountPlan WHERE isActive = true";
@@ -61,6 +61,16 @@ public class AccountPlanRepository implements AccountPlanDAO{
 		Query query= factory.getCurrentSession().createQuery(hql);
 		query.setParameter("planCode", planCode);
 		return (AccountPlan) query.uniqueResult();
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<AccountPlan> getAccountPlans(int pageNo, int pageSize) {
+		String hql = "FROM AccountPlan WHERE isActive = true";
+		Query query = factory.getCurrentSession().createQuery(hql);
+		query.setFirstResult(pageNo*pageSize);
+		query.setMaxResults(pageSize);
+		return query.list();
 	}
 
 }

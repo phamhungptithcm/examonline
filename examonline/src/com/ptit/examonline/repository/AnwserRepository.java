@@ -1,7 +1,8 @@
 package com.ptit.examonline.repository;
 
-import java.util.Set;
+import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -20,31 +21,33 @@ public class AnwserRepository implements AnwserDAO{
 
 	@Override
 	public void insert(Anwser entity) {
-		// TODO Auto-generated method stub
+		factory.getCurrentSession().save(entity);
 		
 	}
 
 	@Override
 	public void update(Anwser entity) {
-		// TODO Auto-generated method stub
+		factory.getCurrentSession().update(entity);
 		
 	}
 
 	@Override
 	public void delete(Anwser entity) {
-		// TODO Auto-generated method stub
+		factory.getCurrentSession().delete(entity);
 		
 	}
 
 	@Override
 	public void refresh(Anwser entity) {
-		// TODO Auto-generated method stub
+		factory.getCurrentSession().refresh(entity);
 		
 	}
-
+	
+	@SuppressWarnings("unchecked")
 	@Override
-	public Set<Anwser> getAccounts() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Anwser> getAnswers() {
+		String hql = "FROM Anwser";
+		Query query = factory.getCurrentSession().createQuery(hql);
+		return query.list();
 	}
 }

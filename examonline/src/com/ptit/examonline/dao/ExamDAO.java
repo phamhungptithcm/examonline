@@ -13,4 +13,5 @@ public interface ExamDAO {
 	public List<Exam> getExams();
 	public List<Exam> getExamsByUsername(String username);
 	public Exam getExamsByExamId(Long examId);
+	public List<Exam> getExams(int pageNo, int pageSize);
 }

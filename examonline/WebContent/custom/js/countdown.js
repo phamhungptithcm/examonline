@@ -1,7 +1,7 @@
 var timer = document.getElementById("countdown");
 
 var counter = 0;
-var timeleft = 10;
+var timeleft = 20;
 function setTimeLeft(time) {
 	timeleft = time;
 }
@@ -25,8 +25,24 @@ function timeIt() {
 	counter++;
 	timer.innerHTML = convertSeconds(timeleft - counter);
 	if(counter == timeleft) {
+		
 		var url= "exam/submit-quiz.htm"; 
 	    window.location = url; 
+	    showMessages("top-end","Time Out", "error");
 	}
 }
 setInterval(timeIt, 1000);
+
+function showMessages(position, title, type) {
+	const Toast = Swal.mixin({
+		  toast: true,
+		  position: position,
+		  showConfirmButton: false,
+		  timer: 5000
+		})
+
+		Toast.fire({
+		  type: type,
+		  title: title
+		})
+}

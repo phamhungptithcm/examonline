@@ -12,4 +12,5 @@ public interface AccountPlanDAO {
 	public List<AccountPlan> getAccountPlans() throws Exception;
 	public AccountPlan getAccountPlanById(Long accountPlanId) throws Exception;
 	public AccountPlan getAccountPlanByCode(String planCode);
+	public List<AccountPlan> getAccountPlans(int pageNo, int pageSize);
 }

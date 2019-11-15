@@ -38,7 +38,8 @@ public class AccountRepository implements AccountDAO{
 	public void refresh(Account entity) {
 		factory.getCurrentSession().refresh(entity);
 	}
-
+	
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Account> getAccounts() {
 		String hql = "FROM Account";
@@ -76,6 +77,16 @@ public class AccountRepository implements AccountDAO{
 		Query query= factory.getCurrentSession().createQuery(hql);
 		query.setParameter("username", username);
 		return (Account)query.uniqueResult();
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Account> getAccounts(int pageNo, int pageSize) {
+		String hql = "FROM Account";
+		Query query= factory.getCurrentSession().createQuery(hql);
+		query.setFirstResult(pageNo*pageSize);
+		query.setMaxResults(pageSize);
+		return query.list();
 	}
 
 	

@@ -39,6 +39,9 @@ public class Question implements Serializable{
 	@Column(name = "LEVEL")
 	private Integer level;
 	
+	@Column(name = "ISACTIVE")
+	private Boolean isActive;
+	
 	@Column(name = "CREATEDBY")
 	private String createdBy;
 
@@ -119,4 +122,14 @@ public class Question implements Serializable{
 	public void setAnwsers(List<Anwser> anwsers) {
 		this.anwsers = anwsers;
 	}
+
+	public Boolean getIsActive() {
+		return isActive;
+	}
+
+	public void setIsActive(Boolean isActive) {
+		this.isActive = isActive;
+	}
+	
+	
 }

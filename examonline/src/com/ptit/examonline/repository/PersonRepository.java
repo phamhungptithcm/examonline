@@ -1,6 +1,6 @@
 package com.ptit.examonline.repository;
 
-import java.util.Set;
+import java.util.List;
 
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
@@ -11,11 +11,10 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import com.ptit.examonline.dao.PersonDAO;
 import com.ptit.examonline.entity.Person;
 
-
 @Repository
 @EnableTransactionManagement
-public class PersonRepository implements PersonDAO{
-	
+public class PersonRepository implements PersonDAO {
+
 	@Autowired
 	SessionFactory factory;
 
@@ -39,17 +38,27 @@ public class PersonRepository implements PersonDAO{
 		factory.getCurrentSession().refresh(entity);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
-	public Set<Person> getPersons() {
+	public List<Person> getPersons() {
 		String hql = "FROM Person";
 		Query query = factory.getCurrentSession().createQuery(hql);
-		return (Set<Person>) query.list();
+		return query.list();
 	}
 
 	@Override
 	public Person getPersonById(Long id) {
 		return factory.getCurrentSession().get(Person.class, id);
 	}
-	
-	
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Person> getPersons(int pageNo, int pageSize) {
+		String hql = "FROM Person";
+		Query query = factory.getCurrentSession().createQuery(hql);
+		query.setFirstResult(pageNo*pageSize);
+		query.setMaxResults(pageSize);
+		return query.list();
+	}
+
 }

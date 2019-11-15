@@ -23,13 +23,32 @@ public class AccountPlanContrroller extends HelperController {
 	private AccountPlanService planService;
 
 	@RequestMapping(value ="index")
-	public String index(Model model) {
+	public String index() {
+		return viewAdminPages("account-plan/index.jsp");
+	}
+	@RequestMapping("get-page")
+	public String getPage(Model model, @RequestParam(value = "pageNo", defaultValue = "0") int pageNo,
+			@RequestParam(value = "pageSize", defaultValue = "5") int pageSize) {
 		try {
-			model.addAttribute("accountPlans", planService.getAccountPlans());
+			model.addAttribute("accountPlans", planService.getAccountPlans(pageNo, pageSize));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return viewAdminPages("account-plan/index.jsp");
+		return "admin/account-plan/list";
+	}
+	
+	@ResponseBody
+	@RequestMapping("get-page-count")
+	public String getPageCount(Model model, @RequestParam(value = "pageSize", defaultValue = "5") int pageSize) {
+		int pageCount = 0;
+		try {
+			int rowCount = planService.getAccountPlans().size();
+			pageCount = (int) Math.ceil(1.0 * rowCount / pageSize);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return String.valueOf(pageCount);
 	}
 	
 	@ResponseBody
@@ -58,7 +77,8 @@ public class AccountPlanContrroller extends HelperController {
 	}
 	
 	@PostMapping("update")
-	public String update(Model model,@RequestParam("accountPlanId") Long accountPlanId, @RequestParam("shortDescription") String shortDescription) {
+	public String update(Model model,@RequestParam("accountPlanId") Long accountPlanId,
+			@RequestParam("shortDescription") String shortDescription) {
 		MessageChecking message = null;
 		try {
 			message  = planService.updatePlan(accountPlanId, shortDescription);

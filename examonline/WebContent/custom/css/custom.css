@@ -80,7 +80,7 @@ body {
 .uk-divider-icon {
     margin: 0px;
 }
-.uk-input,.uk-select{
+.uk-input,.uk-select, .uk-textarea{
 	border-radius: 30px;
     border-color: var(--verve-border-color-input);
 }
@@ -112,7 +112,31 @@ body {
     color: #2196f3;
 }
 
-
+.verve-answerNum {
+	border: 1px solid #0081E4; 
+	border-radius: 50%;
+	padding: 8px 16px;
+	margin-right: 5px;
+}
+.link-paging a{
+	color: #0081E4
+}
+.link-paging a svg{
+	width: 10px;
+	height: 15px;
+}
+.link-paging a:hover svg{
+	color: #0081E4;
+	width: 15px;
+	height: 20px;
+}
+.verve-inline-flex {
+	display: inline-flex;
+    width: 100%;
+}
+.verve-checkbox-middle {
+	padding: 7px;
+}
 .verve-lineDeleted {
 	background-color: #ff8a80;
 	color: white;

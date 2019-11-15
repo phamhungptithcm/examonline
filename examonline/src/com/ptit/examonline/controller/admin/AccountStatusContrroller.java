@@ -11,9 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ptit.examonline.dto.AccountStatusDTO;
-import com.ptit.examonline.dto.LoginInfoDTO;
 import com.ptit.examonline.dto.MessageChecking;
-import com.ptit.examonline.entity.Account;
 import com.ptit.examonline.helper.HelperController;
 import com.ptit.examonline.service.AccountStatusService;
 
@@ -25,16 +23,36 @@ public class AccountStatusContrroller extends HelperController {
 	private AccountStatusService statusService;
 
 	@RequestMapping(value = "index")
-	public String index(Model model) {
+	public String index() {
+		return viewAdminPages("account-status/index.jsp");
+	}
+	
+	@RequestMapping("get-page")
+	public String getPage(Model model, @RequestParam(value = "pageNo", defaultValue = "0") int pageNo,
+			@RequestParam(value = "pageSize", defaultValue = "5") int pageSize) {
 		try {
-			model.addAttribute("acction", "account_status");
-			model.addAttribute("accountStatuses", statusService.getAccountStatuses());
+			model.addAttribute("accountStatuses", statusService.getAccountStatuses(pageNo, pageSize));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return viewAdminPages("account-status/index.jsp");
+		return "admin/account-status/list";
 	}
+	
+	@ResponseBody
+	@RequestMapping("get-page-count")
+	public String getPageCount(Model model, @RequestParam(value = "pageSize", defaultValue = "5") int pageSize) {
+		int pageCount = 0;
+		try {
+			int rowCount = statusService.getAccountStatuses().size();
+			pageCount = (int) Math.ceil(1.0 * rowCount / pageSize);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
+		return String.valueOf(pageCount);
+	}
+	
+	
 	@ResponseBody
 	@RequestMapping("delete")
 	public String delete(@RequestParam("accountStatusId") Long accountStatusId) {

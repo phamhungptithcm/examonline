@@ -9,6 +9,7 @@ public class AccountDTO implements Serializable{
 	private Long accountNumber;
 	private String username;
 	private String password;
+	private String confirmPassword;
 	private String firstName;
 	private String lastName;
 	private String email;
@@ -87,6 +88,12 @@ public class AccountDTO implements Serializable{
 	}
 	public void setAccountPlanId(Long accountPlanId) {
 		this.accountPlanId = accountPlanId;
+	}
+	public String getConfirmPassword() {
+		return confirmPassword;
+	}
+	public void setConfirmPassword(String confirmPassword) {
+		this.confirmPassword = confirmPassword;
 	}
 	
 }

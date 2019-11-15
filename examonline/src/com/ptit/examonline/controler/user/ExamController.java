@@ -43,8 +43,10 @@ public class ExamController extends HelperController {
 			if(questions.size() > 0 && questions != null) {
 				model.addAttribute("subject", HelperConst.getSubject(level));
 				model.addAttribute("questions", questions);
+				
 				resultService.addResult(questions);
 			} else {
+				model.addAttribute("status",false);
 				return "redirect:../home/index.htm";
 			}
 		} catch (Exception e) {

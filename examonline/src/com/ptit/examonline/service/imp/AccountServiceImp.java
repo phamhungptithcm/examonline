@@ -22,11 +22,12 @@ import com.ptit.examonline.entity.AccountPlan;
 import com.ptit.examonline.entity.AccountStatus;
 import com.ptit.examonline.entity.Person;
 import com.ptit.examonline.helper.HelperConst;
+import com.ptit.examonline.helper.HelperService;
 import com.ptit.examonline.helper.Mailer;
 import com.ptit.examonline.service.AccountService;
 
 @Component
-public class AccountServiceImp implements AccountService {
+public class AccountServiceImp extends HelperService  implements AccountService {
 
 	@Autowired
 	private AccountDAO accountDAO;
@@ -193,13 +194,6 @@ public class AccountServiceImp implements AccountService {
 	}
 
 	@Override
-	public Account getCurrentAccount() throws Exception {
-		LoginInfoDTO loginInfoDTO = (LoginInfoDTO) session.getAttribute("user");
-		
-		return accountDAO.getAccount(loginInfoDTO.getUserName());
-	}
-
-	@Override
 	public Account getAccount(String userName) {
 		return accountDAO.getAccount(userName);
 	}
@@ -308,6 +302,11 @@ public class AccountServiceImp implements AccountService {
 		}
 		
 		return message;
+	}
+
+	@Override
+	public List<Account> getAccounts(int pageNo, int pageSize) throws Exception {
+		return accountDAO.getAccounts(pageNo,pageSize);
 	}
 
 }

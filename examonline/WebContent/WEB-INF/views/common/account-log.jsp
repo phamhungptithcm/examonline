@@ -28,30 +28,32 @@
 								<li>
 									<h3 class="uk-card-title uk-text-center">Welcome back!</h3>
 									<div>
-										<form name="formLogin" action="account/account-log.htm?signin" method="post" onsubmit="validationFormLogin()">
+										<form name="formLogin" action="account/account-log.htm?signin"
+											method="post" onsubmit="validationFormLogin()">
 											<div class="uk-margin">
 												<div class="uk-inline uk-width-1-1">
-													<span class="uk-form-icon" uk-icon="icon: user"></span>
-													<input required  name="username" class="uk-input uk-form-large"
+													<span class="uk-form-icon" uk-icon="icon: user"></span> <input
+														required name="username" class="uk-input uk-form-large"
 														type="text" placeholder="Username/Email address"
-														value="${cookie.uid.value}" autocomplete="off"/>
+														value="${cookie.uid.value}" autocomplete="off" />
 												</div>
 											</div>
 											<div class="uk-margin">
 												<div class="uk-inline uk-width-1-1">
-													<span class="uk-form-icon" uk-icon="icon: lock"></span>
-													<input required name="password" class="uk-input uk-form-large"
+													<span class="uk-form-icon" uk-icon="icon: lock"></span> <input
+														required name="password" class="uk-input uk-form-large"
 														type="password" placeholder="Password"
-														value="${cookie.pwd.value}" autocomplete="off"/>
+														value="${cookie.pwd.value}" autocomplete="off" />
 												</div>
 											</div>
 											<div class="uk-column-1-2 uk-margin">
 												<div class="uk-grid-small uk-child-width-auto uk-grid">
 													<label><input type="checkbox" name="remember"
-															class="uk-checkbox" value="true" checked/> Remember me?</label>
+														class="uk-checkbox" value="true" checked /> Remember me?</label>
 												</div>
 												<div class="uk-text-right@s uk-text-center uk-text-small">
-													<a href="account/account-log.htm?forgot" uk-switcher-item="1">Forgot Password?</a>
+													<a href="account/account-log.htm?forgot"
+														uk-switcher-item="1">Forgot Password?</a>
 												</div>
 											</div>
 											<div class="uk-margin verve-right">
@@ -60,8 +62,8 @@
 													type="submit">Sign in</button>
 											</div>
 											<div class="uk-text-small uk-text-center">
-												Not registered? <a href="account/account-log.htm?signup" uk-switcher-item="2">Create
-													an account</a>
+												Not registered? <a href="account/account-log.htm?signup"
+													uk-switcher-item="2">Create an account</a>
 											</div>
 										</form>
 									</div>
@@ -76,20 +78,22 @@
 										<form action="account/account-log.htm?forgot" method="post">
 											<div class="uk-margin">
 												<div class="uk-inline uk-width-1-1">
-													<span class="uk-form-icon" uk-icon="icon: mail"></span> <input required
-														 class="uk-input uk-form-large" type="text"
-														placeholder="Email Address" name="email" autocomplete="off"/>
+													<span class="uk-form-icon" uk-icon="icon: mail"></span> <input
+														required class="uk-input uk-form-large" type="text"
+														placeholder="Email Address" name="email"
+														autocomplete="off" />
 												</div>
 											</div>
 											<div class="uk-column-1-2 uk-margin">
 												<div class="uk-text-lighter uk-text-middle">
-													<a href="account/account-log.htm?signin" uk-switcher-item="0"><span
-														uk-icon="chevron-left"></span> Back to signin</a>
+													<a href="account/account-log.htm?signin"
+														uk-switcher-item="0"><span uk-icon="chevron-left"></span>
+														Back to signin</a>
 												</div>
 												<div class="verve-right">
 													<button
-														class="uk-button uk-button-primary verve-btn-primary" type="submit">Send
-														Email</button>
+														class="uk-button uk-button-primary verve-btn-primary"
+														type="submit">Send Email</button>
 												</div>
 											</div>
 										</form>
@@ -99,12 +103,15 @@
 									<h3 class="uk-card-title uk-text-center">Sign up today.
 										It's free!</h3>
 									<div>
-										<form:form name="formSignup" action="account/account-log.htm?signup" method="post" modelAttribute="accountDTO" onsubmit="validationFormSubmit()">
+										<form:form name="formSignup" id="formSignup"
+											action="account/account-log.htm?signup" method="post"
+											modelAttribute="accountDTO">
 											<div class="uk-margin">
 												<div class="uk-inline uk-width-1-1">
 													<span class="uk-form-icon" uk-icon="icon: user"></span>
 													<form:input class="uk-input uk-form-large" type="text"
-														placeholder="UserName" path="username" autocomplete="off"/>
+														placeholder="UserName" path="username" autocomplete="off" />
+													<form:errors path="username" cssClass="uk-alert-danger" />
 												</div>
 											</div>
 
@@ -112,14 +119,16 @@
 												<div class="uk-inline uk-width-1-1">
 													<span class="uk-form-icon" uk-icon="icon: lock"></span>
 													<form:input class="uk-input uk-form-large" type="password"
-														placeholder="Password" path="password" autocomplete="off"/>
+														placeholder="Password" path="password" autocomplete="off" />
+													<form:errors path="password" cssClass="uk-alert-danger" />
 												</div>
 											</div>
 											<div class="uk-margin">
 												<div class="uk-inline uk-width-1-1">
-													<span class="uk-form-icon" uk-icon="icon: lock"></span> <input
-														class="uk-input uk-form-large" type="password"
-														placeholder="Confirm Password" autocomplete="off"/>
+													<span class="uk-form-icon" uk-icon="icon: lock"></span>
+													<form:input class="uk-input uk-form-large" type="password"
+														placeholder="Confirm Password" path="confirmPassword" autocomplete="off" />
+														<form:errors path="confirmPassword" cssClass="uk-alert-danger" />
 												</div>
 											</div>
 											<div class="uk-margin">
@@ -127,11 +136,15 @@
 													<div class="uk-inline uk-width-1-1">
 														<span class="uk-form-icon" uk-icon="icon: users"></span>
 														<form:input class="uk-input uk-form-large" type="text"
-															placeholder="First Name" path="firstName" autocomplete="off"/>
+															placeholder="First Name" path="firstName"
+															autocomplete="off" />
+															<form:errors path="firstName" cssClass="uk-alert-danger" />
 													</div>
 													<div class="uk-width-1-1">
-														<form:input  class="uk-input uk-form-large" type="text"
-															placeholder="Last Name" path="lastName" autocomplete="off"/>
+														<form:input class="uk-input uk-form-large" type="text"
+															placeholder="Last Name" path="lastName"
+															autocomplete="off" />
+															<form:errors path="lastName" cssClass="uk-alert-danger" />
 													</div>
 												</div>
 											</div>
@@ -139,14 +152,18 @@
 												<div class="uk-inline uk-width-1-1">
 													<span class="uk-form-icon" uk-icon="icon: mail"></span>
 													<form:input class="uk-input uk-form-large" type="text"
-														placeholder="Email Address" path="email" autocomplete="off"/>
+														placeholder="Email Address" path="email"
+														autocomplete="off" />
+														<form:errors path="email" cssClass="uk-alert-danger" />
 												</div>
 											</div>
 											<div class="uk-margin">
 												<div class="uk-inline uk-width-1-1">
 													<span class="uk-form-icon" uk-icon="icon: receiver"></span>
 													<form:input class="uk-input uk-form-large" type="text"
-														placeholder="Phone Number" path="phoneNum" autocomplete="off"/>
+														placeholder="Phone Number" path="phoneNum"
+														autocomplete="off" />
+														<form:errors path="phoneNum" cssClass="uk-alert-danger" />
 												</div>
 											</div>
 											<div class="uk-column-1-2 uk-margin">
@@ -165,7 +182,8 @@
 												</div>
 											</div>
 											<div class="uk-text-small uk-text-center">
-												Already have an account? <a href="account/account-log.htm?signin" uk-switcher-item="0">Sign
+												Already have an account? <a
+													href="account/account-log.htm?signin" uk-switcher-item="0">Sign
 													in</a>
 											</div>
 										</form:form>

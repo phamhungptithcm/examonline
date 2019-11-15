@@ -4,15 +4,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-import com.ptit.examonline.service.AccountService;
+import com.ptit.examonline.dto.LoginInfoDTO;
 
 public class AdminInterceptor extends HandlerInterceptorAdapter {
-
-	@Autowired
-	private AccountService accountService;
 
 	@SuppressWarnings("unused")
 	@Override
@@ -22,18 +18,16 @@ public class AdminInterceptor extends HandlerInterceptorAdapter {
 		String requestAction = request.getRequestURI().replace(cpath, "");
 		HttpSession session = request.getSession();
 
-		/*LoginInfoDTO loginInfoDTO = (LoginInfoDTO) session.getAttribute("user");
-
+		LoginInfoDTO loginInfoDTO = (LoginInfoDTO) session.getAttribute("user");
 		if (loginInfoDTO == null) {
 			response.sendRedirect(cpath + "/account/account-log.htm");
 			return false;
 		} else {
-			if (loginInfoDTO.getIsAdmin()) {
+			if (!loginInfoDTO.getIsAdmin()) {
 				response.sendRedirect(cpath + "/account/account-log.htm");
 				return false;
 			}
 		}
-		response.sendRedirect(cpath + "/admin/home/index.htm");*/
 		return true;
 	}
 }

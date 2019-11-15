@@ -42,5 +42,13 @@
 	<script type="text/javascript">
 		document.getElementById("1").checked = true;
 	</script>
+	
+	<script type="text/javascript" src="custom/js/ajax.js"></script>
+	<script type="text/javascript">
+	 var myParam = location.search.split('status=')[1];
+	 	if(myParam == 'false') {
+	 		showMessage('top-end','There are currently no questions for this subject!','info');
+	 	}
+	</script>
 </body>
 </html>

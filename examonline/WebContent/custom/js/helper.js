@@ -1,20 +1,18 @@
+
 function switchModes(data) {
-	var formTitleUp = "Update account " +data;
-	var formTitleAdd = "Add new an account "+data;
+	var formTitleUp = "Update" + data;
+	var formTitleAdd = "Add new" + data;
 	var switchModeTitleEdit = "EDIT";
 	var switchModeTitleAdd = "ADD NEW";
 	var formTitle = document.getElementById("formTitle");
 	var switchModeTitle = document.getElementById("switchModeTitle");
 	var accStatusForm = document.getElementById("accForm");
 	var fieldDisable;
-	if(data == '') {
+	if(data == 'account') {
 		fieldDisable = document.getElementById("username");
-		
-		
 	} else {
 		fieldDisable = document.getElementById("code");
 	}
-	
 	var switchMode = document.getElementById("switchMode");
 	if (switchMode.checked == true) {
 		switchModeTitle.innerHTML = switchModeTitleAdd;
@@ -48,14 +46,13 @@ function getActionForm(data,status) {
 			action="admin/account-plan/update.htm";
 		}
 		break;
-	case "":
+	case "account":
 		if(status == true) {
 			action="admin/account-management/insert.htm";
 		} else {
 			action="admin/account-management/update.htm";
 		}
 		break;
-
 	default:
 		break;
 	}

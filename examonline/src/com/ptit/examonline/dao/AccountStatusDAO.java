@@ -12,4 +12,5 @@ public interface AccountStatusDAO {
 	public List<AccountStatus> getAccountStatuses() throws Exception;
 	public AccountStatus getAccountStatusById(Long accountStatusId) throws Exception;
 	public AccountStatus getAccountStatusByCode(String statusCode) throws Exception;
+	public List<AccountStatus> getAccountStatuses(int pageNo, int pageSize);
 }
